@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package spreading_of_fire;
 
 /**
- *
- * @author IQ
+ * The main class for executing the project
+ * 
+ * @author Lets_Fire_Go
+ * @version 2014.10.14
  */
 public class Spreading_Of_Fire {
 
