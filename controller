@@ -1,0 +1,16 @@
+**controller**
+
+1) start / stop / reset buttons
+-start button for start spread of fire
+-stop button for stop spread of fire
+-reset button for reset 
+
+2)probcatch show as percentage
+-probCatch is the probability that the tree will catch fire at the next time step.
+
+3)probtree show as percentage
+- probTree is probability that a tree (burning or not burning) initially occupies a
+  site. Thus, probTree is the initial tree density measured as a percentage.
+
+4)probBurning show as percentage
+- probBurning is the fraction of the trees that are burning when the simulation begins.
