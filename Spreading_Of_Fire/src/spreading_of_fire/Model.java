@@ -10,14 +10,15 @@ import java.util.ArrayList;
  */
 public final class Model {
     private int width,height,delay;
-    private double probCatch;
+    private double probCatch,probTree,probBurn;
+    private int step;
     private Cell cell[][];
 
     /**
      * Constructor, create the field
      */
     public Model() {
-        this(31,31,0.5);
+        this(31,31,0.5,0,1.0);
     }
 
     /**
@@ -26,7 +27,7 @@ public final class Model {
      * @param height
      */
     public Model(int width,int height){
-        this(width,height,0.5);
+        this(width,height,0.5,0,1.0);
     }
 
     /**
@@ -35,11 +36,13 @@ public final class Model {
      * @param height
      * @param probCatch
      */
-    public Model(int width, int height, double probCatch) {
+    public Model(int width, int height, double probCatch, double probTree, double probBurn) {
         //Set the properties of field
         this.width = width;
         this.height = height;
         this.probCatch = probCatch;
+        this.probTree = probTree;
+        this.probBurn = probBurn;
         this.delay=100;
         //Reset the field
         fieldReset();
@@ -60,6 +63,40 @@ public final class Model {
     public double getProbCatch() {
         return probCatch;
     }
+
+    /**
+     * Set the tree survival rate
+     * @param probTree
+     */
+    public void setProbTree(double probTree) {
+        this.probTree = probTree;
+    }
+
+    /**
+     * Set the burning rate
+     * @param probBurn
+     */
+    public void setProbBurn(double probBurn) {
+        this.probBurn = probBurn;
+    }
+
+    /**
+     * Get the tree survival rate
+     * @return probTree
+     */
+    public double getProbTree() {
+        return probTree;
+    }
+
+    /**
+     * Get the burning rate
+     * @return probBurn
+     */
+    public double getProbBurn() {
+        return probBurn;
+    }
+    
+    
     
     /**
      * Set the size
@@ -90,6 +127,8 @@ public final class Model {
         //Place the burning cell at the center
         cell[height/2][width/2]=new Cell(Cell.FIRE);
         
+        //Reset the step count
+        step=0;
     }
     
     /**
@@ -138,8 +177,21 @@ public final class Model {
                     if(get(i,j+1)==Cell.TREE)wouldBurnCell.add(cell[i][j+1]);
                     if(get(i,j-1)==Cell.TREE)wouldBurnCell.add(cell[i][j-1]);
                     
-                    //Tree is burned
-                    cell[i][j].set(Cell.EMPTY);
+                    //Check if tree can still survive
+                    if(Math.random() < probTree){
+                        //Check if fire still burn
+                        if(Math.random()<probBurn)
+                            //Set the cell to burn cell
+                            cell[i][j].set(Cell.FIRE);
+                        else 
+                            //Set the cell to tree cell
+                            cell[i][j].set(Cell.TREE);
+                    }
+                    else
+                    {
+                        //Tree is burned
+                        cell[i][j].set(Cell.EMPTY);
+                    }
                     
                     //There are still burn cell left
                     burnCellLeft=true;
@@ -163,6 +215,9 @@ public final class Model {
             }
         }
         
+        //Increase the step count
+        step++;
+        
         //Print the field
         print();
         
@@ -178,6 +233,7 @@ public final class Model {
     }
     
     private void print(){
+        System.out.println("Step : "+step);
         for(int i=0;i<height;i++){
             for(int j=0;j<width;j++){
                 System.out.print(cell[i][j].get()+" ");
