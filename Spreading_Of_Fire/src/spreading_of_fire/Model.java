@@ -8,11 +8,12 @@ import java.util.ArrayList;
  * @author Lets_Fire_Go
  * @version 2014.10.14
  */
-public final class Model {
+public final class Model implements Model_Interface{
     private int width,height,delay;
     private double probCatch,probTree,probBurn;
     private int step;
     private Cell cell[][];
+    private View observer;
 
     /**
      * Constructor, create the field
@@ -95,8 +96,38 @@ public final class Model {
     public double getProbBurn() {
         return probBurn;
     }
-    
-    
+
+    /**
+     * Get the width
+     * @return width
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Get the height
+     * @return height
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * Get the delay
+     * @return delay
+     */
+    public int getDelay() {
+        return delay;
+    }
+
+    /**
+     * Set the delay
+     * @param delay
+     */
+    public void setDelay(int delay) {
+        this.delay = delay;
+    }
     
     /**
      * Set the size
@@ -129,6 +160,9 @@ public final class Model {
         
         //Reset the step count
         step=0;
+        
+        //Update the field
+        update();
     }
     
     /**
@@ -221,6 +255,9 @@ public final class Model {
         //Print the field
         print();
         
+        //Update the field
+        update();
+        
         //Delay the move
         try {
             Thread.sleep(delay);
@@ -240,6 +277,14 @@ public final class Model {
             }
             System.out.println("");
         }
+    }
+
+    public void addObserver(View view) {
+        observer=view;
+    }
+
+    public void update() {
+        
     }
     
 }

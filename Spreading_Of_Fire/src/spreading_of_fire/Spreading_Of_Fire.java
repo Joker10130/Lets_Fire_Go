@@ -13,8 +13,7 @@ public class Spreading_Of_Fire {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Model field=new Model();
-        field.start();
+        new Main();
     }
     
 }
