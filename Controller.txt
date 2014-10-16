@@ -17,3 +17,5 @@
 4)probBurning show as percentage
 - probBurning is the fraction of the trees that are burning when the simulation begins.
 
+
+
