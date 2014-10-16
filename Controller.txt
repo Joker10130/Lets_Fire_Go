@@ -2,8 +2,10 @@
 
 1) start / stop / reset buttons
 -start button for start spread of fire
+  -start button have 2 function which is manual spread and auto spread 
 -stop button for stop spread of fire
 -reset button for reset 
+
 
 2)probcatch show as percentage
 -probCatch is the probability that the tree will catch fire at the next time step.
@@ -14,3 +16,4 @@
 
 4)probBurning show as percentage
 - probBurning is the fraction of the trees that are burning when the simulation begins.
+
