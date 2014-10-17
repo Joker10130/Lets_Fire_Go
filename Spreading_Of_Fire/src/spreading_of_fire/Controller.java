@@ -1,20 +1,107 @@
 package spreading_of_fire;
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+
 
 /**
  * The controller class of project from MVC pattern
  * 
- * @author Lets_Fire_Go
- * @version 2014.10.14
+ * @author aimmx
+ * @version 2014.10.17
  */
 public class Controller extends JPanel implements Controller_Interface{
     private Model myModel;
     private View myView;
 
-    public Controller(Model myModel, View myView) {
-        this.myModel = myModel;
-        this.myView = myView;
+   public Controller(Model myModel,View myView){
+        this.myModel=myModel;
+        this.myView=myView;
+        
+        //Set layout to gridLayout with 1 column and 6 rows
+        setLayout(new GridLayout(6,1));
+        
+        //Add main controller
+        addMainController();
+        
+        //Add fire catch rate slider
+        addProbCatchSlider();
+        
+        //Add tree survival rate slider
+        addProbTreeSlider();
+        
+        //Add burning rate slider
+        addProbFireSlider();
+        
+        //Add size slider
+        addSizeSlider();
+        
+        //Add delay slider
+        addDelaySlider();
     }
+   private void addMainController(){
+    //Create the panel for main controller
+        JPanel controller1=new JPanel();
+        
+        //Add to the main panel
+        add(controller1);
+        
+        //Add the move button
+        addMoveButton(controller1);
+        
+        //Add the start button
+        addStartButton(controller1);
+        
+        //Add the stop button
+        addStopButton(controller1);
+        
+        //Add the reset button
+        addResetButton(controller1);
+        
+        //Add the toggle button
+        addToggleButton(controller1);
+    }
+   private void addMoveButton(JPanel mypanel){
+    JButton moveButton=new JButton("Spread");
+   
+   }
+   private void addStartButton(JPanel mypanel){
+    JButton startButton=new JButton("Auto-Spread");
     
+   }
+   private void addStopButton(JPanel mypanel){
+   JButton stopButton=new JButton("Stop");
+   }
+   private void addResetButton(JPanel mypanel){
+   JButton resetButton=new JButton("Reset");
+   }
+   private void addToggleButton(JPanel mypanel){
+   JButton toggleButton=new JButton("Toggle Value");
+   }
+   
+   
+   
+   
+   private void addProbCatchSlider(){
+    JPanel myPanel=new JPanel();
+        myPanel.setLayout(new GridLayout(1,2));
+        add(myPanel);
+        
+   
+   }
+   private void addProbTreeSlider(){
+   
+   }
+   private void addProbFireSlider(){
+   
+   }
+   private void addSizeSlider(){
+    
+    }
+   private void addDelaySlider(){
+   
+   }
 }
