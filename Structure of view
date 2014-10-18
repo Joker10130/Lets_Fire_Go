@@ -1,0 +1,37 @@
+package spreading_of_fire;
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
+/**
+ * The view class of project from MVC pattern
+ * 
+ * @author mewmeww
+ * @version 2014.10.18
+ */
+public class View extends JPanel implements View_Interface {
+
+    public void paintComponent(Graphics g){
+    //Fill the back ground with Yellow
+        g.setColor(Color.YELLOW);
+        g.fillRect(0, 0, 500, 600);
+        
+    }
+    
+    public void toggleValue() {
+        
+    }
+
+    public void setBlockSize(int blockWidth, int blockHeight) {
+        
+    }
+
+    
+    public void setStep(int step) {
+        
+    }
+
+    public void update(Cell[][] cell) {
+        
+    }
+    
+}
