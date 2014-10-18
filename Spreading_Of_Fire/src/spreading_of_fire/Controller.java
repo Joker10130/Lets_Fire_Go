@@ -1,10 +1,14 @@
 package spreading_of_fire;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+
 
 
 /**
@@ -93,15 +97,51 @@ public class Controller extends JPanel implements Controller_Interface{
    
    }
    private void addProbTreeSlider(){
-   
+   JPanel myPanel=new JPanel();
+        myPanel.setLayout(new GridLayout(1,2));
+        add(myPanel);
+        
+        JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);     
+        
+      
+           
+ 
    }
    private void addProbFireSlider(){
-   
+   //Create the panel with 2 column and add it to the main panel
+        JPanel myPanel=new JPanel();
+        myPanel.setLayout(new GridLayout(1,2));
+        add(myPanel);
+        
+        //Create and add the label panel
+        JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);
+         //Add the name label
+        myLabelPanel.add(new JLabel("Burning Rate : "));
    }
    private void addSizeSlider(){
-    
+     JPanel myPanel=new JPanel();
+        myPanel.setLayout(new GridLayout(1,2));
+        add(myPanel);
+        
+        //Create and add the label panel
+        JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);
+            
+        //Add the name label
+        myLabelPanel.add(new JLabel("Size : "));
     }
    private void addDelaySlider(){
-   
+   JPanel myPanel=new JPanel();
+        myPanel.setLayout(new GridLayout(1,2));
+        add(myPanel);
+        
+        //Create and add the label panel
+        JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);
+            
+        //Add the name label
+        myLabelPanel.add(new JLabel("Delay : "));
    }
 }
