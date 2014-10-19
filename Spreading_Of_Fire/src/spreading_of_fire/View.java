@@ -1,23 +1,22 @@
 package spreading_of_fire;
 
-import java.awt.Graphics;
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  * The view class of project from MVC pattern
- * 
- * @author Mewmeww
+ *
  * @version 2014.10.19
  */
-public class View extends JPanel {
-
-    public void paintComponent(Graphics g){
-        private Cell cell[][];
-    private int blockWidth,blockHeight,step;
-    private boolean showValue;
+public class View extends JPanel  {
+    private final Cell cell[][];
+    private final int blockWidth,blockHeight,step;
+    private final boolean showValue;
     
     /**
      * Paint the cell
+     * @param g
      */
     @Override
     public void paintComponent(Graphics g){
@@ -45,6 +44,7 @@ public class View extends JPanel {
                 }
             }
         }
+        
         //Paint the "Step" label
         g.setColor(Color.BLACK);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
@@ -53,6 +53,17 @@ public class View extends JPanel {
         //Show the showValue toggle status
         g.drawString("Show Value: "+showValue, 200, 550);
     }
+    
+    /**
+     * Constructor - create the view panel
+     * @param blockWidth
+     * @param blockHeight
+     */
+    public View(int blockWidth,int blockHeight) {
+        this.blockWidth=blockWidth;
+        this.blockHeight=blockHeight;
+        showValue=false;
+        cell=null;
     }
     
     public void toggleValue() {
