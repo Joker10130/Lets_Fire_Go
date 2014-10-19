@@ -45,6 +45,7 @@ public final class Model implements Model_Interface{
         this.probTree = probTree;
         this.probBurn = probBurn;
         this.delay=100;
+        observer=null;
         //Reset the field
         fieldReset();
     }
@@ -252,9 +253,6 @@ public final class Model implements Model_Interface{
         //Increase the step count
         step++;
         
-        //Print the field
-        print();
-        
         //Update the field
         update();
         
@@ -268,23 +266,24 @@ public final class Model implements Model_Interface{
         //Still continue spreading fire
         return false;
     }
-    
-    private void print(){
-        System.out.println("Step : "+step);
-        for(int i=0;i<height;i++){
-            for(int j=0;j<width;j++){
-                System.out.print(cell[i][j].get()+" ");
-            }
-            System.out.println("");
-        }
-    }
 
-    public void addObserver(View view) {
+    /**
+     * Add the observer for this model
+     * @param view
+     */
+    public void addObserver(View view){
         observer=view;
+        update();
     }
 
-    public void update() {
-        
+    /**
+     * Update this field
+     */
+    public void update(){
+        if(observer!=null){
+            observer.setStep(step);
+            observer.update(cell);
+        }    
     }
     
 }
