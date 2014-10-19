@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  * @author Lets_Fire_Go
  * @version 2014.10.14
  */
-public class View extends JPanel implements View_Interface {
+public class View extends JPanel {
 
     public void paintComponent(Graphics g){
         

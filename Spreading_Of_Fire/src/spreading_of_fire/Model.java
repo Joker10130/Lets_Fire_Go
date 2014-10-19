@@ -6,9 +6,9 @@ import java.util.ArrayList;
  * The view class of project from MVC pattern
  * 
  * @author Lets_Fire_Go
- * @version 2014.10.14
+ * @version 2014.10.18
  */
-public final class Model implements Model_Interface{
+public final class Model{
     private int width,height,delay;
     private double probCatch,probTree,probBurn;
     private int step;

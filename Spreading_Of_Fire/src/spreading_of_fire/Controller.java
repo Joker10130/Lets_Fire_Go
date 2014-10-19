@@ -17,7 +17,7 @@ import javax.swing.JSlider;
  * @author aimmx
  * @version 2014.10.17
  */
-public class Controller extends JPanel implements Controller_Interface{
+public class Controller extends JPanel{
     private Model myModel;
     private View myView;
 
