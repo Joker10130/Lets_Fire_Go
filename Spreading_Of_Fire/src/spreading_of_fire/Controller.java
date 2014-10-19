@@ -70,6 +70,7 @@ public class Controller extends JPanel{
     }
    private void addMoveButton(JPanel mypanel){
     JButton moveButton=new JButton("Spread");
+    
    
    }
    private void addStartButton(JPanel mypanel){
@@ -84,6 +85,8 @@ public class Controller extends JPanel{
    }
    private void addToggleButton(JPanel mypanel){
    JButton toggleButton=new JButton("Toggle Value");
+   
+       
    }
    
    
@@ -93,7 +96,11 @@ public class Controller extends JPanel{
     JPanel myPanel=new JPanel();
         myPanel.setLayout(new GridLayout(1,2));
         add(myPanel);
-        
+        //Create and add the label panel
+        JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);
+         myLabelPanel.add(new JLabel("Fire Catch Rate : "));
+         
    
    }
    private void addProbTreeSlider(){
@@ -103,7 +110,8 @@ public class Controller extends JPanel{
         
         JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
         myPanel.add(myLabelPanel);     
-        
+         //Add the name label
+        myLabelPanel.add(new JLabel("Tree Survival Rate : "));
       
            
  
