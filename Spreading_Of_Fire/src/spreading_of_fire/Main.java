@@ -27,7 +27,9 @@ public class Main extends JFrame{
         Model myModel=new Model();
         
         //Create the view, the output of main process of project
-        View myView=new View();
+        int boxWidth=(int)((500)/myModel.getWidth());
+        int boxHeight=(int)(500/myModel.getHeight());
+        View myView=new View(boxWidth,boxHeight);
         
         //Add the myView panel to the left
         add(myView);

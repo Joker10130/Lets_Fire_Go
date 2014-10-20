@@ -9,7 +9,7 @@ import javax.swing.*;
  * @version 2014.04.19
  */
 
-public class View  {
+public class View extends JPanel  {
     private Cell cell[][];
     private int blockWidth,blockHeight,step;
     private boolean showValue;
@@ -24,15 +24,14 @@ public class View  {
         this.blockHeight=blockHeight;
         showValue=false;
         cell=null;
-
+    }
         
         
     /**
      * Toggle the showValue
      */
     public void toggleValue(){
-        if(showValue)showValue=false;
-        else showValue=true;
+        showValue = !showValue;
     }
     
     /**
