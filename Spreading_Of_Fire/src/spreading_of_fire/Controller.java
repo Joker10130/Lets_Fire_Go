@@ -118,7 +118,10 @@ public class Controller extends JPanel{
         myPanel.add(myLabelPanel);     
          //Add the name label
         myLabelPanel.add(new JLabel("Tree Survival Rate : "));
-      
+          
+        //Add the value label
+        JLabel myLabel=new JLabel(""+(int)(myModel.getProbTree()*100)+"%");
+        myLabelPanel.add(myLabel);
            
  
    }
