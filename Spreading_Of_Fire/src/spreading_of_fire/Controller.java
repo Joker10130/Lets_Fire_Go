@@ -100,7 +100,13 @@ public class Controller extends JPanel{
         JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
         myPanel.add(myLabelPanel);
          myLabelPanel.add(new JLabel("Fire Catch Rate : "));
+        
+         //Add the value label
+         JLabel myLabel=new JLabel(""+(int)(myModel.getProbCatch()*100)+"%");
+        myLabelPanel.add(myLabel);
          
+        JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanel);
    
    }
    private void addProbTreeSlider(){
@@ -127,6 +133,15 @@ public class Controller extends JPanel{
         myPanel.add(myLabelPanel);
          //Add the name label
         myLabelPanel.add(new JLabel("Burning Rate : "));
+        
+         //Add the value label
+        JLabel myLabel=new JLabel(""+(int)(myModel.getProbBurn()*100)+"%");
+        myLabelPanel.add(myLabel);
+            
+
+        //Create and add the controller panel
+        JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanel);
    }
    private void addSizeSlider(){
      JPanel myPanel=new JPanel();
@@ -139,6 +154,15 @@ public class Controller extends JPanel{
             
         //Add the name label
         myLabelPanel.add(new JLabel("Size : "));
+        
+        //Add the value label
+        JLabel myLabel=new JLabel(""+myModel.getWidth()+"x"+myModel.getHeight());
+        myLabelPanel.add(myLabel);
+            
+
+        //Create and add the controller panel
+        JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanel);
     }
    private void addDelaySlider(){
    JPanel myPanel=new JPanel();
@@ -151,5 +175,14 @@ public class Controller extends JPanel{
             
         //Add the name label
         myLabelPanel.add(new JLabel("Delay : "));
+        
+         //Add the value label
+        JLabel myLabel=new JLabel(""+myModel.getDelay()+"ms");
+        myLabelPanel.add(myLabel);
+            
+
+        //Create and add the controller panel
+        JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanel);
    }
 }

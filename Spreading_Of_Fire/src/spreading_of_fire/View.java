@@ -8,6 +8,7 @@ import javax.swing.*;
  * @author mewmeww
  * @version 2014.04.19
  */
+
 public class View  {
     private Cell cell[][];
     private int blockWidth,blockHeight,step;
@@ -23,8 +24,9 @@ public class View  {
         this.blockHeight=blockHeight;
         showValue=false;
         cell=null;
-    }
-    
+
+        
+        
     /**
      * Toggle the showValue
      */
