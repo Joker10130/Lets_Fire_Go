@@ -1,5 +1,7 @@
 package spreading_of_fire;
 
+import java.awt.Color;
+import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -13,6 +15,23 @@ public class View extends JPanel  {
     private Cell cell[][];
     private int blockWidth,blockHeight,step;
     private boolean showValue;
+    
+     /**
+     * Paint the cell
+     */
+    @Override
+    public void paintComponent(Graphics g){
+        //Fill the back ground with Yellow
+        g.setColor(Color.YELLOW);
+        g.fillRect(0, 0, 500, 600);
+        //Paint the "Step" label
+        g.setColor(Color.BLACK);
+        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        g.drawString("Step: "+step, 10, 550);
+        
+        //Show the showValue toggle status
+        g.drawString("Show Value: "+showValue, 200, 550);
+    }
     
     /**
      * Constructor - create the view panel
