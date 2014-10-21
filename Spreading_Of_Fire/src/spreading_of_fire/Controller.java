@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 
@@ -107,24 +109,54 @@ public class Controller extends JPanel{
          
         JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
         myPanel.add(mySliderPanel);
-   
+        
+             
+        //Create and Add the Slider from 0-100
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 50);
+        mySlider.addChangeListener(new ChangeListener() {
+             public void stateChanged(ChangeEvent e) {
+                
+            }
+        });
+          //Add the slider to the panel
+        mySliderPanel.add(mySlider);
    }
    private void addProbTreeSlider(){
-   JPanel myPanel=new JPanel();
+              
+        //Create the panel with 2 column and add it to the main panel
+        JPanel myPanel=new JPanel();
         myPanel.setLayout(new GridLayout(1,2));
         add(myPanel);
         
+        //Create and add the label panel
         JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-        myPanel.add(myLabelPanel);     
-         //Add the name label
+        myPanel.add(myLabelPanel);
+            
+        //Add the name label
         myLabelPanel.add(new JLabel("Tree Survival Rate : "));
-          
+
         //Add the value label
         JLabel myLabel=new JLabel(""+(int)(myModel.getProbTree()*100)+"%");
         myLabelPanel.add(myLabel);
-           
- 
-   }
+            
+
+        //Create and add the controller panel
+        JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanel);
+            
+        //Create and Add the Slider from 0-100
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 0);
+        mySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                
+            }
+        });
+        
+        //Add the slider to the panel
+        mySliderPanel.add(mySlider);
+    }
+    
    private void addProbFireSlider(){
    //Create the panel with 2 column and add it to the main panel
         JPanel myPanel=new JPanel();
@@ -145,6 +177,18 @@ public class Controller extends JPanel{
         //Create and add the controller panel
         JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
         myPanel.add(mySliderPanel);
+        
+        //Create and Add the Slider from 0-100
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 100);
+        mySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                
+            }
+        });
+        
+        //Add the slider to the panel
+        mySliderPanel.add(mySlider);
    }
    private void addSizeSlider(){
      JPanel myPanel=new JPanel();
@@ -166,6 +210,18 @@ public class Controller extends JPanel{
         //Create and add the controller panel
         JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
         myPanel.add(mySliderPanel);
+        //Create and Add the Slider from 5-49
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,5, 49, 15);
+        mySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+               
+                
+            }
+        });
+        
+        //Add the slider to the panel
+        mySliderPanel.add(mySlider);
     }
    private void addDelaySlider(){
    JPanel myPanel=new JPanel();
@@ -187,5 +243,16 @@ public class Controller extends JPanel{
         //Create and add the controller panel
         JPanel mySliderPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
         myPanel.add(mySliderPanel);
+        //Create and Add the Slider from 0-100
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,1, 1000, 100);
+        mySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+              
+            }
+        });
+        
+        //Add the slider to the panel
+        mySliderPanel.add(mySlider);
    }
 }
