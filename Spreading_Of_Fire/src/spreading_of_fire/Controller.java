@@ -22,10 +22,13 @@ import javax.swing.event.ChangeListener;
 public class Controller extends JPanel{
     private Model myModel;
     private View myView;
-
-   public Controller(Model myModel,View myView){
+    private Thread startThread;
+   
+    public Controller(Model myModel,View myView){
         this.myModel=myModel;
         this.myView=myView;
+       
+    
         
         //Set layout to gridLayout with 1 column and 6 rows
         setLayout(new GridLayout(6,1));
@@ -236,7 +239,9 @@ public class Controller extends JPanel{
                 //Change the label
                 myLabel.setText(""+myModel.getWidth()+"x"+myModel.getHeight());
                 //Stop the Thread if alive
-               
+               if(startThread!=null&&startThread.isAlive()){
+                    startThread.stop();
+                }
                 
             }
         });
