@@ -115,7 +115,11 @@ public class Controller extends JPanel{
         JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 50);
         mySlider.addChangeListener(new ChangeListener() {
              public void stateChanged(ChangeEvent e) {
-                
+                 //Set the Fire Catch Rate
+                int newProb=((JSlider)(e.getSource())).getValue();
+                myModel.setProbCatch((double)newProb/100);
+                //Change the label
+                myLabel.setText(""+(int)(myModel.getProbCatch()*100)+"%");
             }
         });
           //Add the slider to the panel
@@ -149,7 +153,11 @@ public class Controller extends JPanel{
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                
+                //Set the Tree Survival Rate
+                int newProbTree=((JSlider)(e.getSource())).getValue();
+                myModel.setProbTree((double)newProbTree/100.0);
+                //Change the label
+                myLabel.setText(""+(int)(myModel.getProbTree()*100)+"%");
             }
         });
         
@@ -183,7 +191,11 @@ public class Controller extends JPanel{
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                
+                //Set the Burning Rate
+                int newProbBurn=((JSlider)(e.getSource())).getValue();
+                myModel.setProbBurn((double)newProbBurn/100.0);
+                //Change the label
+                myLabel.setText(""+(int)(myModel.getProbBurn()*100)+"%");
             }
         });
         
@@ -215,6 +227,15 @@ public class Controller extends JPanel{
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+               //Set the Size in myModel
+                int newSize=((JSlider)(e.getSource())).getValue();
+                myModel.setSize(newSize*2+1,newSize*2+1);
+                //Set the Size in myView
+                int boxSize=(int)((500)/(newSize*2+1));
+                myView.setBlockSize(boxSize, boxSize);
+                //Change the label
+                myLabel.setText(""+myModel.getWidth()+"x"+myModel.getHeight());
+                //Stop the Thread if alive
                
                 
             }
@@ -248,7 +269,11 @@ public class Controller extends JPanel{
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-              
+               //Set the delay
+                int newDelay=((JSlider)(e.getSource())).getValue();
+                myModel.setDelay(newDelay);
+                //Change the label
+                myLabel.setText(""+myModel.getDelay()+"ms");
             }
         });
         
