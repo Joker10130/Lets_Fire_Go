@@ -24,6 +24,17 @@ public class View extends JPanel  {
         //Fill the back ground with Yellow
         g.setColor(Color.YELLOW);
         g.fillRect(0, 0, 500, 600);
+        
+        
+        //Don't paint if there is no cell
+        if(cell==null)return;
+        for(int i=0;i<cell.length;i++){
+            for(int j=0;j<cell[0].length;j++){
+                //Paint the cell
+                g.setColor(cell[i][j].getColor());
+            }
+        }
+        
         //Paint the "Step" label
         g.setColor(Color.BLACK);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
