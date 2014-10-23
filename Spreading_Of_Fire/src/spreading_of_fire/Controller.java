@@ -73,26 +73,54 @@ public class Controller extends JPanel{
         //Add the toggle button
         addToggleButton(controller1);
     }
-   private void addMoveButton(JPanel mypanel){
-    JButton moveButton=new JButton("Spread");
+  private void addMoveButton(JPanel myPanel){
+        
+        //Create the button
+        JButton moveButton=new JButton("Spread");
+        
+     
+        //Add the button to the myPanel
+        myPanel.add(moveButton);
+    }
     
-   
-   }
-   private void addStartButton(JPanel mypanel){
-    JButton startButton=new JButton("Auto-Spread");
+   private void addStartButton(JPanel myPanel){
+        
+        //Create the button
+        JButton startButton=new JButton("Auto-Spread");
+        
     
-   }
-   private void addStopButton(JPanel mypanel){
-   JButton stopButton=new JButton("Stop");
-   }
-   private void addResetButton(JPanel mypanel){
-   JButton resetButton=new JButton("Reset");
-   }
-   private void addToggleButton(JPanel mypanel){
-   JButton toggleButton=new JButton("Toggle Value");
-   
+        
+        //Add the button to the myPanel
+        myPanel.add(startButton);
+    }
+   private void addStopButton(JPanel myPanel){
+        
+        //Create the button
+        JButton stopButton=new JButton("Stop");
+        
+      
+        
+        //Add the button to the myPanel
+        myPanel.add(stopButton);
+    }
+   private void addResetButton(JPanel myPanel){
+        
+        //Create the button
+        JButton resetButton=new JButton("Reset");
+        
        
-   }
+        //Add the button to the myPanel
+        myPanel.add(resetButton);
+    }
+   private void addToggleButton(JPanel myPanel){
+        
+        //Create the button
+        JButton toggleButton=new JButton("Toggle Value");
+        
+
+        //Add the button to the myPanel
+        myPanel.add(toggleButton);
+    }
    
    
    
