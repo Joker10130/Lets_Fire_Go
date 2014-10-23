@@ -25,6 +25,9 @@ public class View extends JPanel  {
         g.setColor(Color.YELLOW);
         g.fillRect(0, 0, 500, 600);
         
+        //Calculate the border width
+        int border=(500-(blockWidth*cell.length))/2;
+        
         
         //Don't paint if there is no cell
         if(cell==null)return;
@@ -32,6 +35,11 @@ public class View extends JPanel  {
             for(int j=0;j<cell[0].length;j++){
                 //Paint the cell
                 g.setColor(cell[i][j].getColor());
+                g.fillOval(border+j*blockWidth,border+i*blockHeight,blockWidth,blockHeight);
+                
+                //Check the show value or not
+                if(showValue){
+                }
             }
         }
         
