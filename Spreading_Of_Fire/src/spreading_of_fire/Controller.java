@@ -77,8 +77,15 @@ public class Controller extends JPanel{
         
         //Create the button
         JButton moveButton=new JButton("Spread");
+        //Add the action listener to the button
+        moveButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //If there is no Thread or Thread is dead, do move
+                if(startThread==null||!startThread.isAlive())myModel.move();
+            }
+        });
         
-     
         //Add the button to the myPanel
         myPanel.add(moveButton);
     }
@@ -87,6 +94,21 @@ public class Controller extends JPanel{
         
         //Create the button
         JButton startButton=new JButton("Auto-Spread");
+        //Add the action listener to the button
+        startButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //If there is no Thread or Thread is dead, create new Thread and start
+                if(startThread==null||!startThread.isAlive()){
+                    startThread=new Thread() {  
+                        public void run() { 
+                            myModel.start();
+                        }  
+                    };
+                    startThread.start();
+                }
+            }
+        });
         
     
         
@@ -98,7 +120,18 @@ public class Controller extends JPanel{
         //Create the button
         JButton stopButton=new JButton("Stop");
         
-      
+      //Add the action listener to the button
+        stopButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //If There is an alive Thread, stop it
+                if(startThread!=null&&startThread.isAlive()){
+                    startThread.stop();
+                }
+
+            }
+        });
+        
         
         //Add the button to the myPanel
         myPanel.add(stopButton);
@@ -108,7 +141,18 @@ public class Controller extends JPanel{
         //Create the button
         JButton resetButton=new JButton("Reset");
         
-       
+        //Add the action listener to the button
+        resetButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //If There is an alive Thread, stop it
+                if(startThread!=null&&startThread.isAlive()){
+                    startThread.stop();
+                }
+                //Reset the main process
+                myModel.fieldReset();
+            }
+        });
         //Add the button to the myPanel
         myPanel.add(resetButton);
     }
@@ -117,7 +161,14 @@ public class Controller extends JPanel{
         //Create the button
         JButton toggleButton=new JButton("Toggle Value");
         
-
+//Add the action listener to the button
+        toggleButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //Toggle to show value in the View
+                myView.toggleValue();
+            }
+        });
         //Add the button to the myPanel
         myPanel.add(toggleButton);
     }
