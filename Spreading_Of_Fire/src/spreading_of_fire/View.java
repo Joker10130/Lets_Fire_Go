@@ -42,6 +42,7 @@ public class View extends JPanel  {
                     //Show the value of each cell
                     g.setColor(Color.BLACK);
                     g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, blockHeight));
+                    g.drawString(""+cell[i][j].get(), border+j*blockWidth+blockWidth/4,border+i*blockHeight+blockHeight*7/8);
                 }
             }
         }
@@ -72,7 +73,9 @@ public class View extends JPanel  {
      * Toggle the showValue
      */
     public void toggleValue(){
-        showValue = !showValue;
+        if(showValue)showValue=false;
+        else showValue=true;
+        repaint();
     }
     
     /**
@@ -99,6 +102,7 @@ public class View extends JPanel  {
      */
     public void update(Cell cell[][]){
         this.cell=cell;
+        repaint();
     }
 }
 
