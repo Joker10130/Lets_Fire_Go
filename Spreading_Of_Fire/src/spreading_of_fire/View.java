@@ -39,6 +39,9 @@ public class View extends JPanel  {
                 
                 //Check the show value or not
                 if(showValue){
+                    //Show the value of each cell
+                    g.setColor(Color.BLACK);
+                    g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, blockHeight));
                 }
             }
         }
