@@ -19,7 +19,7 @@ public final class Model{
      * Constructor, create the field
      */
     public Model() {
-        this(31,31,0.5,0,1.0);
+        this(31,31,0.5,1.0,0);
     }
 
     /**
@@ -28,7 +28,7 @@ public final class Model{
      * @param height
      */
     public Model(int width,int height){
-        this(width,height,0.5,0,1.0);
+        this(width,height,0.5,1.0,0);
     }
 
     /**
@@ -152,7 +152,21 @@ public final class Model{
         //Place the tree cell
         for(int i=0;i<height;i++){
             for(int j=0;j<width;j++){
-                cell[i][j]=new Cell(Cell.TREE);
+                //Tree density
+                if(Math.random() < probTree){
+                    //Tree is burn or not
+                    if(Math.random()<probBurn)
+                        //Tree is burning
+                        cell[i][j].set(Cell.FIRE);
+                    else 
+                        //Tree is not burning
+                        cell[i][j].set(Cell.TREE);
+                }
+                else
+                {
+                    //Cell is empty
+                    cell[i][j].set(Cell.EMPTY);
+                }
             }
         }
         
@@ -212,21 +226,8 @@ public final class Model{
                     if(get(i,j+1)==Cell.TREE)wouldBurnCell.add(cell[i][j+1]);
                     if(get(i,j-1)==Cell.TREE)wouldBurnCell.add(cell[i][j-1]);
                     
-                    //Check if tree can still survive
-                    if(Math.random() < probTree){
-                        //Check if fire still burn
-                        if(Math.random()<probBurn)
-                            //Set the cell to burn cell
-                            cell[i][j].set(Cell.FIRE);
-                        else 
-                            //Set the cell to tree cell
-                            cell[i][j].set(Cell.TREE);
-                    }
-                    else
-                    {
-                        //Tree is burned
-                        cell[i][j].set(Cell.EMPTY);
-                    }
+                    //Tree is burned
+                    cell[i][j].set(Cell.EMPTY);
                     
                     //There are still burn cell left
                     burnCellLeft=true;
