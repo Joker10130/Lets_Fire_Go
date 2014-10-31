@@ -219,7 +219,7 @@ public class Controller extends JPanel{
         myPanel.add(myLabelPanel);
             
         //Add the name label
-        myLabelPanel.add(new JLabel("Tree Survival Rate : "));
+        myLabelPanel.add(new JLabel("Tree Density: "));
 
         //Add the value label
         JLabel myLabel=new JLabel(""+(int)(myModel.getProbTree()*100)+"%");
@@ -231,7 +231,7 @@ public class Controller extends JPanel{
         myPanel.add(mySliderPanel);
             
         //Create and Add the Slider from 0-100
-        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 0);
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 100);
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -257,7 +257,7 @@ public class Controller extends JPanel{
         JPanel myLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
         myPanel.add(myLabelPanel);
          //Add the name label
-        myLabelPanel.add(new JLabel("Burning Rate : "));
+        myLabelPanel.add(new JLabel("Initial burning : "));
         
          //Add the value label
         JLabel myLabel=new JLabel(""+(int)(myModel.getProbBurn()*100)+"%");
@@ -269,7 +269,7 @@ public class Controller extends JPanel{
         myPanel.add(mySliderPanel);
         
         //Create and Add the Slider from 0-100
-        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 100);
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL,0, 100, 0);
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
