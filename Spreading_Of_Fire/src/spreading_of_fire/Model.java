@@ -171,8 +171,8 @@ public final class Model{
             }
         }
         
-        //Place the burning cell at the center
-        cell[height/2][width/2]=new Cell(Cell.FIRE);
+        //Place the burning cell at the center if probBurn = 0
+        if(probBurn==0)cell[height/2][width/2]=new Cell(Cell.FIRE);
         
         //Reset the step count
         step=0;
