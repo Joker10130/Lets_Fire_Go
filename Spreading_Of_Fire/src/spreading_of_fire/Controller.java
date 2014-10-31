@@ -145,9 +145,11 @@ public class Controller extends JPanel{
         resetButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                
                 //If There is an alive Thread, stop it
                 if(startThread!=null&&startThread.isAlive()){
                     startThread.stop();
+                    
                 }
                 //Reset the main process
                 myModel.fieldReset();
@@ -240,6 +242,13 @@ public class Controller extends JPanel{
                 myModel.setProbTree((double)newProbTree/100.0);
                 //Change the label
                 myLabel.setText(""+(int)(myModel.getProbTree()*100)+"%");
+                //If There is an alive Thread, stop it
+                if(startThread!=null&&startThread.isAlive()){
+                    startThread.stop();
+                    
+                }
+                //Reset the main process
+                myModel.fieldReset();
             }
         });
         
@@ -278,6 +287,13 @@ public class Controller extends JPanel{
                 myModel.setProbBurn((double)newProbBurn/100.0);
                 //Change the label
                 myLabel.setText(""+(int)(myModel.getProbBurn()*100)+"%");
+                //If There is an alive Thread, stop it
+                if(startThread!=null&&startThread.isAlive()){
+                    startThread.stop();
+                    
+                }
+                //Reset the main process
+                myModel.fieldReset();
             }
         });
         
