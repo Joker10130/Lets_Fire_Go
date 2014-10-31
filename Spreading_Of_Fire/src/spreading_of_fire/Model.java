@@ -152,6 +152,7 @@ public final class Model{
         //Place the tree cell
         for(int i=0;i<height;i++){
             for(int j=0;j<width;j++){
+                cell[i][j]=new Cell();
                 //Tree density
                 if(Math.random() < probTree){
                     //Tree is burn or not
