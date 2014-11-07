@@ -1,0 +1,78 @@
+	<link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
+	<body>
+		<div class="bar">
+			<center><b>User Manual </b></center>
+		</div>
+
+		<div class="content">
+			<h2>User Interface</h2>
+			<center><img src="main_program.png" alt="" width="500" height="270"></center>
+
+			<br><hr><br>
+			<h2>Left Panel</h2>
+
+			<p><strong>This panel shows the simulation of spreading of fire</strong></p>
+
+			<table border=1>
+				<thead>
+					<tr>
+						<th>Symbol</th>
+						<th>Value</th>
+						<th>Meaning</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Yellow Plain</td>
+						<td>0</td>
+						<td>Empty</td>
+					</tr>
+					<tr>
+						<td>Green Oval</td>
+						<td>1</td>
+						<td>Tree</td>
+					</tr>
+					<tr>
+						<td>Red Oval</td>
+						<td>2</td>
+						<td>Fire</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p><strong>Step</strong><br>The number of times that the fire spread. The step count starts with 0.<br></p>
+
+			<p><strong>Show Value</strong><br>The status of showing values of the simulation.</p>
+
+			<ul class="task-list">
+				<li>true - Show both values and symbols.</li>
+				<li>false - Hide the values and show only symbols.</li>
+			</ul>
+
+			
+			<br><hr><br>
+			<h2>Right Panel</h2>
+
+			<p><strong>This panel show the controller of factors of the simulation</strong></p>
+
+			<h3>Button</h3>
+
+			<ul class="task-list">
+				<li><strong>Spread</strong> - Spread the fire step by step. By pressing this button, the step count will increase by 1.</li>
+				<li><strong>Auto Spread</strong> - Spread the fire respectively. By pressing this button, the step count will continually increase by 1.</li>
+				<li><strong>Stop</strong> - Stop the spreading process. By pressing this button, if <strong>Auto Spread</strong> was pressed, the step counting will be stopped.</li>
+				<li><strong>Reset</strong> - Reset the field. By pressing this button, the field will be reset and the step count will become 0.</li>
+				<li><strong>Toggle Value</strong> - Toggle the status of showing values of the simulation. By pressing this button, the field will show or hide the value alternatively</li>
+			</ul>
+
+			<h3>Slider</h3>
+
+			<ul class="task-list">
+				<li><strong>Fire Catch Rate</strong> [0-100] : The chance that fire can spread by catching the neighbor tree. The default value is 50%.</li>
+				<li><strong>Tree Density</strong> [0-100] : The density of tree at the beginning or at the step 0. The default value is 100%.</li>
+				<li><strong>Initial Burning</strong> [0-100] : The chance that the initial tree is burning. The default value is 0%.</li>
+				<li><strong>Size</strong> [11x11 - 99x99] : The size of the field, which means the number of element for each rows and columns. The default value is 31x31.</li>
+				<li><strong>Delay</strong> [1-1000] : The time delay for each step count in milliseconds. The default value is 100 ms.</li>
+			</ul>
+		</div>
+	</body>
