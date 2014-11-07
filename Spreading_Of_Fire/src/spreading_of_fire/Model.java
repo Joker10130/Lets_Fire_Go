@@ -4,35 +4,39 @@ import java.util.ArrayList;
 
 /**
  * The view class of project from MVC pattern
- * 
+ *
  * @author Lets_Fire_Go
  * @version 2014.10.18
  */
-public final class Model{
-    private int width,height,delay;
-    private double probCatch,probTree,probBurn;
+public final class Model {
+
+    private int width, height, delay;
+    private double probCatch, probTree, probBurn, probLightning;
     private int step;
     private Cell cell[][];
     private View observer;
+    private boolean stepLightning;
 
     /**
      * Constructor, create the field
      */
     public Model() {
-        this(31,31,0.5,1.0,0);
+        this(31, 31, 0.5, 1.0, 0);
     }
 
     /**
      * Constructor, create the field
+     *
      * @param width
      * @param height
      */
-    public Model(int width,int height){
-        this(width,height,0.5,1.0,0);
+    public Model(int width, int height) {
+        this(width, height, 0.5, 1.0, 0);
     }
 
     /**
      * Constructor, create the field
+     *
      * @param width
      * @param height
      * @param probCatch
@@ -44,14 +48,17 @@ public final class Model{
         this.probCatch = probCatch;
         this.probTree = probTree;
         this.probBurn = probBurn;
-        this.delay=100;
-        observer=null;
+        this.probLightning = 0.00;
+        this.stepLightning = false;
+        this.delay = 100;
+        observer = null;
         //Reset the field
         fieldReset();
     }
 
     /**
      * Set the fire catch rate
+     *
      * @param probCatch
      */
     public void setProbCatch(double probCatch) {
@@ -60,6 +67,7 @@ public final class Model{
 
     /**
      * Get the fire catch rate
+     *
      * @return probCatch
      */
     public double getProbCatch() {
@@ -68,6 +76,7 @@ public final class Model{
 
     /**
      * Set the tree survival rate
+     *
      * @param probTree
      */
     public void setProbTree(double probTree) {
@@ -76,6 +85,7 @@ public final class Model{
 
     /**
      * Set the burning rate
+     *
      * @param probBurn
      */
     public void setProbBurn(double probBurn) {
@@ -84,6 +94,7 @@ public final class Model{
 
     /**
      * Get the tree survival rate
+     *
      * @return probTree
      */
     public double getProbTree() {
@@ -92,6 +103,7 @@ public final class Model{
 
     /**
      * Get the burning rate
+     *
      * @return probBurn
      */
     public double getProbBurn() {
@@ -99,7 +111,34 @@ public final class Model{
     }
 
     /**
+     * Get the lightning rate
+     *
+     * @return probLightning
+     */
+    public double getProbLightning() {
+        return probLightning;
+    }
+
+    /**
+     * Set the lightning rate
+     *
+     * @param probLightning
+     */
+    public void setProbLightning(double probLightning) {
+        this.probLightning = probLightning;
+    }
+
+    public boolean getStepLightning() {
+        return stepLightning;
+    }
+
+    public void setStepLightning(boolean stepLightning) {
+        this.stepLightning = stepLightning;
+    }
+    
+    /**
      * Get the width
+     *
      * @return width
      */
     public int getWidth() {
@@ -108,6 +147,7 @@ public final class Model{
 
     /**
      * Get the height
+     *
      * @return height
      */
     public int getHeight() {
@@ -116,6 +156,7 @@ public final class Model{
 
     /**
      * Get the delay
+     *
      * @return delay
      */
     public int getDelay() {
@@ -124,168 +165,210 @@ public final class Model{
 
     /**
      * Set the delay
+     *
      * @param delay
      */
     public void setDelay(int delay) {
         this.delay = delay;
     }
-    
+
     /**
      * Set the size
+     *
      * @param width
      * @param height
      */
-    public void setSize(int width,int height){
-        this.width=width;
-        this.height=height;
+    public void setSize(int width, int height) {
+        this.width = width;
+        this.height = height;
         //Reset the field after set
         fieldReset();
     }
-    
+
     /**
      * Reset the field
      */
-    public void fieldReset(){
+    public void fieldReset() {
         //Create new field with current size
-        cell=new Cell[height][width];
-        
+        cell = new Cell[height][width];
+
         //Place the tree cell
-        for(int i=0;i<height;i++){
-            for(int j=0;j<width;j++){
-                cell[i][j]=new Cell();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cell[i][j] = new Cell();
                 //Tree density
-                if(Math.random() < probTree){
+                if (Math.random() < probTree) {
                     //Tree is burn or not
-                    if(Math.random()<probBurn)
-                        //Tree is burning
+                    if (Math.random() < probBurn) //Tree is burning
+                    {
                         cell[i][j].set(Cell.FIRE);
-                    else 
-                        //Tree is not burning
+                    } else //Tree is not burning
+                    {
                         cell[i][j].set(Cell.TREE);
-                }
-                else
-                {
+                    }
+                } else {
                     //Cell is empty
                     cell[i][j].set(Cell.EMPTY);
                 }
             }
         }
-        
+
         //Place the burning cell at the center if probBurn = 0
-        if(probBurn==0)cell[height/2][width/2]=new Cell(Cell.FIRE);
-        
+        if (probBurn == 0) {
+            cell[height / 2][width / 2] = new Cell(Cell.FIRE);
+        }
+
         //Reset the step count
-        step=0;
-        
+        step = 0;
+
         //Update the field
         update();
     }
-    
+
     /**
      * Start moving
      */
-    public void start(){
+    public void start() {
         //Move until it can't move
-        while(!move());
+        while (!move());
     }
-    
+
     /**
      * Get the state of cell at x,y
+     *
      * @param x
      * @param y
      * @return Cell state
      */
-    private int get(int x,int y){
-        try{
+    private int get(int x, int y) {
+        try {
             return cell[x][y].get();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             //If x,y out of bound, treat as empty
             return Cell.EMPTY;
         }
     }
-    
+
     /**
      * Spread fire cells
+     *
      * @return true if there is no burning cell
      */
-    public boolean move(){
-        
-        boolean burnCellLeft=false;
-        ArrayList<Cell> wouldBurnCell=new ArrayList();
-        
+    public boolean move() {
+
+        boolean burnCellLeft = false,wouldLightningLeft=false;
+        ArrayList<Cell> wouldBurnCell = new ArrayList();
+        ArrayList<Cell> wouldLightningCell = new ArrayList();
+
         //Go through the field
-        for(int i=0;i<cell.length;i++){
-            for(int j=0;j<cell[0].length;j++){
-                
+        for (int i = 0; i < cell.length; i++) {
+            for (int j = 0; j < cell[0].length; j++) {
+
                 //Check if it is burning cell
-                if(cell[i][j].get()==Cell.FIRE){
-                    
-                    //Spread fire to the neighbors
-                    if(get(i+1,j)==Cell.TREE)wouldBurnCell.add(cell[i+1][j]);
-                    if(get(i-1,j)==Cell.TREE)wouldBurnCell.add(cell[i-1][j]);
-                    if(get(i,j+1)==Cell.TREE)wouldBurnCell.add(cell[i][j+1]);
-                    if(get(i,j-1)==Cell.TREE)wouldBurnCell.add(cell[i][j-1]);
-                    
-                    //Tree is burned
-                    cell[i][j].set(Cell.EMPTY);
-                    
+                if (cell[i][j].get() == Cell.FIRE) {
+
+                    if (!cell[i][j].isLightning() || (cell[i][j].getTurn() > 1 && cell[i][j].getTurn() < 5) || !stepLightning) {
+                        //Spread fire to the neighbors
+                        if (get(i + 1, j) == Cell.TREE) {
+                            wouldBurnCell.add(cell[i + 1][j]);
+                        }
+                        if (get(i - 1, j) == Cell.TREE) {
+                            wouldBurnCell.add(cell[i - 1][j]);
+                        }
+                        if (get(i, j + 1) == Cell.TREE) {
+                            wouldBurnCell.add(cell[i][j + 1]);
+                        }
+                        if (get(i, j - 1) == Cell.TREE) {
+                            wouldBurnCell.add(cell[i][j - 1]);
+                        }
+                    }
+
+                    if (!cell[i][j].isLightning() || cell[i][j].getTurn() == 0 || !stepLightning) {
+                        //Tree is burned
+                        cell[i][j].set(Cell.EMPTY);
+                    }
+                    else{
+                        cell[i][j].setTurn(cell[i][j].getTurn() - 1);
+                    }
+
                     //There are still burn cell left
-                    burnCellLeft=true;
+                    burnCellLeft = true;
+                }
+
+                //Check if the tree cell get lightning or not
+                if (cell[i][j].get() == Cell.TREE && Math.random() < probLightning) {
+                    wouldLightningCell.add(cell[i][j]);
+                    wouldLightningLeft=true;
                 }
             }
         }
-        
+
         //If there is no Fire Cell, stop
-        if(!burnCellLeft)return true;
+        if (!burnCellLeft && !wouldLightningLeft) {
+            return true;
+        }
         
         //Check all wouldBurnCell
-        while(!wouldBurnCell.isEmpty()){
-            
-            //Get the tree cell from the wouldBurnCell
-            Cell fireCell=wouldBurnCell.get(0);
-            wouldBurnCell.remove(0);
-            
+        while (!wouldLightningCell.isEmpty()) {
+
+            //Get the tree cell from the wouldLightningCell
+            Cell lightningCell = wouldLightningCell.get(0);
+            wouldLightningCell.remove(0);
+
             //Check if the tree is catched by fire
-            if(Math.random() < probCatch){
-                fireCell.set(Cell.FIRE);
+            if (Math.random() < probCatch) {
+                lightningCell.set(Cell.LIGHTNING);
             }
         }
         
+        //Check all wouldBurnCell
+        while (!wouldBurnCell.isEmpty()) {
+
+            //Get the tree cell from the wouldBurnCell
+            Cell fireCell = wouldBurnCell.get(0);
+            wouldBurnCell.remove(0);
+
+            //Check if the tree is catched by fire
+            if (Math.random() < probCatch) {
+                fireCell.set(Cell.FIRE);
+            }
+        }
+
         //Increase the step count
         step++;
-        
+
         //Update the field
         update();
-        
+
         //Delay the move
         try {
             Thread.sleep(delay);
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
-        
+
         //Still continue spreading fire
         return false;
     }
 
     /**
      * Add the observer for this model
+     *
      * @param view
      */
-    public void addObserver(View view){
-        observer=view;
+    public void addObserver(View view) {
+        observer = view;
         update();
     }
 
     /**
      * Update this field
      */
-    public void update(){
-        if(observer!=null){
+    public void update() {
+        if (observer != null) {
             observer.setStep(step);
             observer.update(cell);
-        }    
+        }
     }
-    
+
 }
