@@ -11,10 +11,11 @@ import javax.swing.*;
  * @version 2014.04.19
  */
 
-public class View extends JPanel  {
+public class View extends JPanel{
     private Cell cell[][];
     private int blockWidth,blockHeight,step;
     private boolean showValue;
+     private boolean showLighting;
     
      /**
      * Paint the cell
@@ -49,11 +50,14 @@ public class View extends JPanel  {
         
         //Paint the "Step" label
         g.setColor(Color.BLACK);
-        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
         g.drawString("Step: "+step, 10, 550);
         
         //Show the showValue toggle status
-        g.drawString("Show Value: "+showValue, 200, 550);
+        g.drawString("Show Value: "+showValue, 100, 550);
+       
+        //show step lighting status
+        g.drawString("Lighting Status: "+showLighting, 255, 550);
     }
     
     /**
@@ -66,6 +70,7 @@ public class View extends JPanel  {
         this.blockHeight=blockHeight;
         showValue=false;
         cell=null;
+        showLighting=false;
     }
         
         
