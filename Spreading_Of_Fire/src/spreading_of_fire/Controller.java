@@ -30,7 +30,7 @@ public class Controller extends JPanel {
         this.myView = myView;
 
         //Set layout to gridLayout with 1 column and 6 rows
-        setLayout(new GridLayout(7, 1));
+        setLayout(new GridLayout(9, 1));
 
         //Add main controller
         addMainController();
@@ -52,6 +52,9 @@ public class Controller extends JPanel {
 
         //Add delay slider
         addDelaySlider();
+        
+         //Add lightningslider
+        addProbLightningSlider();
         
 
     }
@@ -414,4 +417,34 @@ public class Controller extends JPanel {
         mySliderPanel.add(mySlider);
     }
 
-}
+    private void addProbLightningSlider() {
+        JPanel myPanel = new JPanel();
+        myPanel.setLayout(new GridLayout(1, 2));
+        add(myPanel);
+
+        //Create and add the label panel
+        JPanel myLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);
+
+        //Add the name label
+        myLabelPanel.add(new JLabel("Lighting "));
+
+        //Create and add the controller panel
+        JPanel mySliderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanel);
+        //Create and Add the Slider from 0-100
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL, 1, 1000, 100);
+        mySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+               
+            }
+        });
+
+        //Add the slider to the panel
+        mySliderPanel.add(mySlider);
+    }
+
+    }
+
+
