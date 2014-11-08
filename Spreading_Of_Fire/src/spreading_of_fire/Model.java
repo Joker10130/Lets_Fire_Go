@@ -16,6 +16,10 @@ public final class Model {
     private Cell cell[][];
     private View observer;
     private boolean stepLightning;
+    private int firstNumTree,numTree;
+    private int firstFireCellX,firstFireCellY;
+    private String windDirection;
+    private int windLevel;
 
     /**
      * Constructor, create the field
@@ -51,6 +55,10 @@ public final class Model {
         this.probLightning = 0.00;
         this.stepLightning = false;
         this.delay = 100;
+        this.firstFireCellX=width/2;
+        this.firstFireCellY=height/2;
+        this.windDirection="N";
+        this.windLevel=0;
         observer = null;
         //Reset the field
         fieldReset();
@@ -135,6 +143,22 @@ public final class Model {
     public void setStepLightning(boolean stepLightning) {
         this.stepLightning = stepLightning;
     }
+
+    public void setWindDirection(String windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public void setWindLevel(int windLevel) {
+        this.windLevel = windLevel;
+    }
+
+    public String getWindDirection() {
+        return windDirection;
+    }
+
+    public int getWindLevel() {
+        return windLevel;
+    }
     
     /**
      * Get the width
@@ -181,10 +205,25 @@ public final class Model {
     public void setSize(int width, int height) {
         this.width = width;
         this.height = height;
+        this.firstFireCellX=width/2;
+        this.firstFireCellY=height/2;
         //Reset the field after set
         fieldReset();
     }
 
+    public int getFirstFireCellX() {
+        return firstFireCellX;
+    }
+
+    public int getFirstFireCellY() {
+        return firstFireCellY;
+    }
+
+    public void setFirstFireCell(int firstFireCellX,int firstFireCellY) {
+        this.firstFireCellX = Math.min(width,Math.max(0, firstFireCellX));
+        this.firstFireCellY = Math.min(width,Math.max(0, firstFireCellY));
+    }
+    
     /**
      * Reset the field
      */
@@ -195,7 +234,7 @@ public final class Model {
         //Place the tree cell
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                cell[i][j] = new Cell();
+                cell[i][j] = new Cell(i,j);
                 //Tree density
                 if (Math.random() < probTree) {
                     //Tree is burn or not
@@ -215,9 +254,11 @@ public final class Model {
 
         //Place the burning cell at the center if probBurn = 0
         if (probBurn == 0) {
-            cell[height / 2][width / 2] = new Cell(Cell.FIRE);
+            cell[firstFireCellY][firstFireCellX].set(Cell.FIRE);
         }
 
+        firstNumTree=countTree();
+        
         //Reset the step count
         step = 0;
 
@@ -249,6 +290,35 @@ public final class Model {
         }
     }
 
+    private int countTree(){
+        int countTree=0;
+        for (int i = 0; i < cell.length; i++) {
+            for (int j = 0; j < cell[0].length; j++) {
+                if(cell[i][j].get()==Cell.TREE)countTree++;
+            }
+        }
+        return countTree;
+    }
+    
+    public double getPercentRemainingTree(){
+        return ((double)numTree/(double)firstNumTree)*100;
+    }
+    
+    private void windEffect(ArrayList<Cell> cellList, int i, int j){
+        if("S".equals(windDirection)){
+            if(get(i+1,j)==Cell.TREE)cellList.add(cell[i+1][j]);
+        }
+        if("W".equals(windDirection)){
+            if(get(i,j-1)==Cell.TREE)cellList.add(cell[i][j-1]);
+        }
+        if("N".equals(windDirection)){
+            if(get(i-1,j)==Cell.TREE)cellList.add(cell[i-1][j]);
+        }
+        if("E".equals(windDirection)){
+            if(get(i,j+1)==Cell.TREE)cellList.add(cell[i][j+1]);
+        }
+    }
+    
     /**
      * Spread fire cells
      *
@@ -259,6 +329,8 @@ public final class Model {
         boolean burnCellLeft = false,wouldLightningLeft=false;
         ArrayList<Cell> wouldBurnCell = new ArrayList();
         ArrayList<Cell> wouldLightningCell = new ArrayList();
+        ArrayList<Cell> wouldSpreadByWindLevel1 = new ArrayList();
+        ArrayList<Cell> wouldSpreadByWindLevel2 = new ArrayList();
 
         //Go through the field
         for (int i = 0; i < cell.length; i++) {
@@ -276,10 +348,10 @@ public final class Model {
                             wouldBurnCell.add(cell[i - 1][j]);
                         }
                         if (get(i, j + 1) == Cell.TREE) {
-                            wouldBurnCell.add(cell[i][j + 1]);
+                            wouldBurnCell.add(cell[i][j+1]);
                         }
                         if (get(i, j - 1) == Cell.TREE) {
-                            wouldBurnCell.add(cell[i][j - 1]);
+                            wouldBurnCell.add(cell[i ][j-1]);
                         }
                     }
 
@@ -327,16 +399,54 @@ public final class Model {
             //Get the tree cell from the wouldBurnCell
             Cell fireCell = wouldBurnCell.get(0);
             wouldBurnCell.remove(0);
-
+            
+            if(fireCell.get()!=Cell.TREE)continue;
+            
             //Check if the tree is catched by fire
             if (Math.random() < probCatch) {
                 fireCell.set(Cell.FIRE);
+                windEffect(wouldSpreadByWindLevel1, fireCell.getI(), fireCell.getJ());
+            }
+        }
+        
+        if(windLevel>=1){
+            while (!wouldSpreadByWindLevel1.isEmpty()) {
+
+                //Get the tree cell from the wouldBurnCell
+                Cell fireCell = wouldSpreadByWindLevel1.get(0);
+                wouldSpreadByWindLevel1.remove(0);
+
+                if(fireCell.get()!=Cell.TREE)continue;
+
+                //Check if the tree is catched by fire
+                if (Math.random() < probCatch) {
+                    fireCell.set(Cell.FIRE);
+                    windEffect(wouldSpreadByWindLevel2, fireCell.getI(), fireCell.getJ());
+                }
+            }
+        }
+        
+        if(windLevel==2){
+            while (!wouldSpreadByWindLevel2.isEmpty()) {
+
+                //Get the tree cell from the wouldBurnCell
+                Cell fireCell = wouldSpreadByWindLevel2.get(0);
+                wouldSpreadByWindLevel2.remove(0);
+
+                if(fireCell.get()!=Cell.TREE)continue;
+
+                //Check if the tree is catched by fire
+                if (Math.random() < probCatch) {
+                    fireCell.set(Cell.FIRE);
+                }
             }
         }
 
         //Increase the step count
         step++;
 
+        numTree=countTree();
+        System.out.println(numTree+"/"+firstNumTree+" : "+getPercentRemainingTree());
         //Update the field
         update();
 
@@ -365,7 +475,8 @@ public final class Model {
      * Update this field
      */
     public void update() {
-        if (observer != null) {
+        if (observer != null) {;
+            //observer.setStepLightning(this.stepLightning);
             observer.setStep(step);
             observer.update(cell);
         }

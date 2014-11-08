@@ -14,12 +14,13 @@ public class Cell {
     private int status;
     private boolean lightning;
     private int turn;
+    private int i,j;
 
     /**
      * Constructor - create the empty cell
      */
-    public Cell() {
-        this(Cell.EMPTY);
+    public Cell(int i,int j) {
+        this(Cell.EMPTY,i,j);
     }
 
     /**
@@ -27,8 +28,10 @@ public class Cell {
      *
      * @param status
      */
-    public Cell(int status) {
+    public Cell(int status,int i,int j) {
         this.status = status;
+        this.i=i;
+        this.j=j;
         lightning = false;
         turn = 0;
     }
@@ -59,6 +62,14 @@ public class Cell {
         }
     }
 
+    public int getI(){
+        return i;
+    }
+    
+    public int getJ(){
+        return j;
+    }
+    
     public boolean isLightning() {
         return lightning;
     }
