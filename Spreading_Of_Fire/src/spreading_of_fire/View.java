@@ -109,5 +109,11 @@ public class View extends JPanel{
         this.cell=cell;
         repaint();
     }
+
+    void setStepLightning(boolean stepLightning) {
+    }
+
+    void setPercent(double percentRemainingTree) {
+    }
 }
 

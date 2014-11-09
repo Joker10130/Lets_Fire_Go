@@ -477,6 +477,7 @@ public final class Model {
     public void update() {
         if (observer != null) {;
             //observer.setStepLightning(this.stepLightning);
+            //observer.setPercent(this.getPercentRemainingTree());
             observer.setStep(step);
             observer.update(cell);
         }
