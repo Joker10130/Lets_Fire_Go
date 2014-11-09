@@ -258,7 +258,7 @@ public final class Model {
             cell[firstFireCellY][firstFireCellX].set(Cell.FIRE);
         }
 
-        firstNumTree=countTree();
+        numTree=firstNumTree=countTree();
         
         //Reset the step count
         step = 0;
@@ -295,7 +295,7 @@ public final class Model {
         int countTree=0;
         for (int i = 0; i < cell.length; i++) {
             for (int j = 0; j < cell[0].length; j++) {
-                if(cell[i][j].get()==Cell.TREE)countTree++;
+                if(cell[i][j].get()!=Cell.EMPTY)countTree++;
             }
         }
         return countTree;
@@ -375,7 +375,7 @@ public final class Model {
                 }
             }
         }
-
+        
         //If there is no Fire Cell, stop
         if (!burnCellLeft && !wouldLightningLeft) {
             return true;
