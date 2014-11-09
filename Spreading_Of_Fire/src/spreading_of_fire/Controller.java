@@ -24,13 +24,14 @@ public class Controller extends JPanel {
     private Model myModel;
     private View myView;
     private Thread startThread;
+    private Object myPanel;
 
     public Controller(Model myModel, View myView) {
         this.myModel = myModel;
         this.myView = myView;
 
         //Set layout to gridLayout with 1 column and 6 rows
-        setLayout(new GridLayout(9, 1));
+        setLayout(new GridLayout(10, 1));
 
         //Add main controller
         addMainController();
@@ -80,6 +81,9 @@ public class Controller extends JPanel {
 
         //Add the toggle button
         addToggleButton(controller1);
+        
+        //Add the steplightning button
+        addStepButton(controller1);
 
     }
     
@@ -215,6 +219,17 @@ public class Controller extends JPanel {
         //Add the button to the myPanel
         myPanel.add(helpButton);
     }
+      private void addStepButton(JPanel myPanel) {
+        
+
+        //Create the button
+        JButton stepButton = new JButton("step lightning");
+        
+      //Add the button to the myPanel
+         myPanel.add(stepButton);
+    
+    }
+
     
     private void addProbCatchSlider() {
         JPanel myPanel = new JPanel();
@@ -444,7 +459,7 @@ public class Controller extends JPanel {
         //Add the slider to the panel
         mySliderPanel.add(mySlider);
     }
+}
 
-    }
-
+  
 
