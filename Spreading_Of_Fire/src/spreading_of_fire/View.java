@@ -15,7 +15,8 @@ public class View extends JPanel{
     private Cell cell[][];
     private int blockWidth,blockHeight,step;
     private boolean showValue;
-     private boolean showLighting;
+    private boolean showLighting;
+    private double percentRemainingTree;
     
      /**
      * Paint the cell
@@ -111,9 +112,12 @@ public class View extends JPanel{
     }
 
     void setStepLightning(boolean stepLightning) {
+        this.showLighting=stepLightning;
+        repaint();
     }
 
     void setPercent(double percentRemainingTree) {
+        this.percentRemainingTree=percentRemainingTree;
     }
 }
 

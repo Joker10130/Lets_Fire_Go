@@ -142,6 +142,7 @@ public final class Model {
 
     public void setStepLightning(boolean stepLightning) {
         this.stepLightning = stepLightning;
+        observer.setStepLightning(this.stepLightning);
     }
 
     public void setWindDirection(String windDirection) {
@@ -446,7 +447,7 @@ public final class Model {
         step++;
 
         numTree=countTree();
-        System.out.println(numTree+"/"+firstNumTree+" : "+getPercentRemainingTree());
+        //System.out.println(numTree+"/"+firstNumTree+" : "+getPercentRemainingTree());
         //Update the field
         update();
 
@@ -476,8 +477,7 @@ public final class Model {
      */
     public void update() {
         if (observer != null) {;
-            //observer.setStepLightning(this.stepLightning);
-            //observer.setPercent(this.getPercentRemainingTree());
+            observer.setPercent(this.getPercentRemainingTree());
             observer.setStep(step);
             observer.update(cell);
         }
