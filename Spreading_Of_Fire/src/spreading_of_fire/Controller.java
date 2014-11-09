@@ -82,8 +82,6 @@ public class Controller extends JPanel {
         //Add the toggle button
         addToggleButton(controller1);
         
-        //Add the steplightning button
-        addStepButton(controller1);
 
     }
     
@@ -96,6 +94,9 @@ public class Controller extends JPanel {
 
         //Add the move button
         addHelpButton(controller2);
+        
+        //Add the steplightning button
+        addStepButton(controller2);
 
     }
 
@@ -223,7 +224,15 @@ public class Controller extends JPanel {
         
 
         //Create the button
-        JButton stepButton = new JButton("step lightning");
+        JButton stepButton = new JButton("Step Lightning");
+        
+        //Add the action listener to the button
+        stepButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                myModel.setStepLightning(!myModel.getStepLightning());
+            }
+        });
         
       //Add the button to the myPanel
          myPanel.add(stepButton);
@@ -442,17 +451,25 @@ public class Controller extends JPanel {
         myPanel.add(myLabelPanel);
 
         //Add the name label
-        myLabelPanel.add(new JLabel("Lighting "));
-
+        myLabelPanel.add(new JLabel("Lighting Chance : "));
+        
+        //Add the value label
+        JLabel myLabel = new JLabel("" + (int) (myModel.getProbLightning()* 100) + "%");
+        myLabelPanel.add(myLabel);
+        
         //Create and add the controller panel
         JPanel mySliderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         myPanel.add(mySliderPanel);
         //Create and Add the Slider from 0-100
-        JSlider mySlider = new JSlider(JSlider.HORIZONTAL, 1, 1000, 100);
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-               
+                //Set the Lightning Chance
+                int newProb = ((JSlider) (e.getSource())).getValue();
+                myModel.setProbLightning((double) newProb / 100);
+                //Change the label
+                myLabel.setText("" + (int) (myModel.getProbLightning()* 100) + "%");
             }
         });
 
