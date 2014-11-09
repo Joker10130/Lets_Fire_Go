@@ -52,13 +52,16 @@ public class View extends JPanel{
         //Paint the "Step" label
         g.setColor(Color.BLACK);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        g.drawString("Step: "+step, 10, 550);
+        g.drawString("Step: "+step, 10, 520);
         
         //Show the showValue toggle status
-        g.drawString("Show Value: "+showValue, 100, 550);
+        g.drawString("Show Value: "+showValue, 100, 520);
        
         //show step lighting status
-        g.drawString("Lighting Status: "+showLighting, 255, 550);
+        g.drawString("Lighting Status: "+showLighting, 255, 520);
+        
+        //Show remainingtree
+        g.drawString("Remaining Tree: "+percentRemainingTree, 10, 550);
     }
     
     /**
@@ -72,6 +75,7 @@ public class View extends JPanel{
         showValue=false;
         cell=null;
         showLighting=false;
+        percentRemainingTree = 100.00;
     }
         
         
