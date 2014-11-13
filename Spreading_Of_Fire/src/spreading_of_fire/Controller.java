@@ -55,15 +55,13 @@ public class Controller extends JPanel {
         //Add delay slider
         addDelaySlider();
         
-         //Add lightning slider
+       //Add lightning slider
         addProbLightningSlider();
-        
-        //Add level slider
-        addLevelSlider();
-        
-        //add direction combobox
-        adddirectionCombobox();
 
+        //add Wind Controller
+        addWindController();
+        
+  
     }
 
     private void addMainController() {
@@ -448,7 +446,7 @@ public class Controller extends JPanel {
         mySliderPanel.add(mySlider);
     }
 
-    private void addProbLightningSlider() {
+   private void addProbLightningSlider() {
         JPanel myPanel = new JPanel();
         myPanel.setLayout(new GridLayout(1, 2));
         add(myPanel);
@@ -459,11 +457,11 @@ public class Controller extends JPanel {
 
         //Add the name label
         myLabelPanel.add(new JLabel("Lighting Chance : "));
-        
+
         //Add the value label
-        JLabel myLabel = new JLabel("" + (int) (myModel.getProbLightning()* 100) + "%");
+        JLabel myLabel = new JLabel("" + (int) (myModel.getProbLightning() * 100) + "%");
         myLabelPanel.add(myLabel);
-        
+
         //Create and add the controller panel
         JPanel mySliderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         myPanel.add(mySliderPanel);
@@ -476,7 +474,7 @@ public class Controller extends JPanel {
                 int newProb = ((JSlider) (e.getSource())).getValue();
                 myModel.setProbLightning((double) newProb / 100);
                 //Change the label
-                myLabel.setText("" + (int) (myModel.getProbLightning()* 100) + "%");
+                myLabel.setText("" + (int) (myModel.getProbLightning() * 100) + "%");
             }
         });
 
@@ -484,60 +482,62 @@ public class Controller extends JPanel {
         mySliderPanel.add(mySlider);
     }
 
-    private void addLevelSlider() {
-         JPanel myPanel = new JPanel();
+    private void addWindController() {
+        JPanel myPanel = new JPanel();
         myPanel.setLayout(new GridLayout(1, 2));
         add(myPanel);
 
-        //Create and add the label panel
+        //Wind Direction Controller
         JPanel myLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         myPanel.add(myLabelPanel);
+        
+        myLabelPanel.add(new JLabel("Wind Direction : "));
+
+        JComboBox windDirectionComboBox = new JComboBox();
+        windDirectionComboBox.addItem("North");
+        windDirectionComboBox.addItem("West");
+        windDirectionComboBox.addItem("East");
+        windDirectionComboBox.addItem("South");
+        windDirectionComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                String direction=(String) ((JComboBox)ae.getSource()).getSelectedItem();
+                myModel.setWindDirection(direction.substring(0,1));
+            }
+        });
+        
+        myLabelPanel.add(windDirectionComboBox);
+
+        //Wind Level Controller
+        //Create and add the label panel
+        
 
         //Add the name label
-        myLabelPanel.add(new JLabel("Level of wind "));
-          
+        myLabelPanel.add(new JLabel("Wind Level : "));
+
+        //Add the value label
+        JLabel myLabel = new JLabel("" + myModel.getWindLevel());
+        myLabelPanel.add(myLabel);
         
         //Create and add the controller panel
         JPanel mySliderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         myPanel.add(mySliderPanel);
+        
         //Create and Add the Slider from 0-100
-        JSlider mySlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL, 0, 2, 0);
+        mySlider.setSize(100, 10);
         mySlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                
+                //Set the Wind Level
+                int newLevel = ((JSlider) (e.getSource())).getValue();
+                myModel.setWindLevel(newLevel);
+                //Change the label
+                myLabel.setText("" + myModel.getWindLevel());
             }
         });
-         mySliderPanel.add(mySlider);
+        mySliderPanel.add(mySlider);
     }
-
-    private void adddirectionCombobox() {
-    JPanel myPanel = new JPanel();
-        myPanel.setLayout(new GridLayout(1, 4));
-        add(myPanel);
-        //Create and add the label panel
-        JPanel myLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        myPanel.add(myLabelPanel);
-
-        //Add the name label
-        myLabelPanel.add(new JLabel("Direction of wind : "));
-
-    JComboBox jComboBox1 = new JComboBox();
-    jComboBox1.addItem("north");
-    jComboBox1.addItem("west");
-    jComboBox1.addItem("east");
-    jComboBox1.addItem("south");
-    
-    Object cmboitem = jComboBox1.getSelectedItem();
-    System.out.println(cmboitem);
-
-    myPanel.add(jComboBox1);
-
-    myPanel.setSize(300, 200);
-    myPanel.setVisible(true);
-    
-    }
-   
 }
 
   
