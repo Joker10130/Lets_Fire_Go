@@ -54,8 +54,11 @@ public class Controller extends JPanel {
         //Add delay slider
         addDelaySlider();
         
-         //Add lightningslider
+         //Add lightning slider
         addProbLightningSlider();
+        
+        //Add level slider
+        addLevelSlider();
         
 
     }
@@ -475,6 +478,33 @@ public class Controller extends JPanel {
 
         //Add the slider to the panel
         mySliderPanel.add(mySlider);
+    }
+
+    private void addLevelSlider() {
+         JPanel myPanel = new JPanel();
+        myPanel.setLayout(new GridLayout(1, 2));
+        add(myPanel);
+
+        //Create and add the label panel
+        JPanel myLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);
+
+        //Add the name label
+        myLabelPanel.add(new JLabel("Level of wind "));
+          
+        
+        //Create and add the controller panel
+        JPanel mySliderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanel);
+        //Create and Add the Slider from 0-100
+        JSlider mySlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+        mySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                
+            }
+        });
+         mySliderPanel.add(mySlider);
     }
 }
 
