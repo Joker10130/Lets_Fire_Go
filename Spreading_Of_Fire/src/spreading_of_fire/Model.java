@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * @version 2014.10.18
  */
 public final class Model {
-
     private int width, height, delay;
     private double probCatch, probTree, probBurn, probLightning;
     private int step;
@@ -253,10 +252,8 @@ public final class Model {
             }
         }
 
-        //Place the burning cell at the center if probBurn = 0
-        if (probBurn == 0) {
-            cell[firstFireCellY][firstFireCellX].set(Cell.FIRE);
-        }
+        //Place the burning cell
+        cell[firstFireCellY][firstFireCellX].set(Cell.FIRE);
 
         numTree=firstNumTree=countTree();
         
