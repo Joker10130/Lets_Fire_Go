@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JComboBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -60,6 +61,8 @@ public class Controller extends JPanel {
         //Add level slider
         addLevelSlider();
         
+        //add direction combobox
+        adddirectionCombobox();
 
     }
 
@@ -84,6 +87,7 @@ public class Controller extends JPanel {
 
         //Add the toggle button
         addToggleButton(controller1);
+        
         
 
     }
@@ -506,6 +510,34 @@ public class Controller extends JPanel {
         });
          mySliderPanel.add(mySlider);
     }
+
+    private void adddirectionCombobox() {
+    JPanel myPanel = new JPanel();
+        myPanel.setLayout(new GridLayout(1, 4));
+        add(myPanel);
+        //Create and add the label panel
+        JPanel myLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanel);
+
+        //Add the name label
+        myLabelPanel.add(new JLabel("Direction of wind : "));
+
+    JComboBox jComboBox1 = new JComboBox();
+    jComboBox1.addItem("north");
+    jComboBox1.addItem("west");
+    jComboBox1.addItem("east");
+    jComboBox1.addItem("south");
+    
+    Object cmboitem = jComboBox1.getSelectedItem();
+    System.out.println(cmboitem);
+
+    myPanel.add(jComboBox1);
+
+    myPanel.setSize(300, 200);
+    myPanel.setVisible(true);
+    
+    }
+   
 }
 
   
