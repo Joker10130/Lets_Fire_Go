@@ -99,29 +99,15 @@ public class View extends JPanel{
     }
     
     /**
-     * Set the step
-     * @param step
-     */
-    public void setStep(int step) {
-        this.step=step;
-    }
-    
-    /**
      * Update the cell
      * @param cell
      */
-    public void update(Cell cell[][]){
+    public void update(Cell cell[][],int step,double percentRemainingTree, boolean stepLightning){
         this.cell=cell;
-        repaint();
-    }
-
-    void setStepLightning(boolean stepLightning) {
+        this.step=step;
         this.showLighting=stepLightning;
-        repaint();
-    }
-
-    void setPercent(double percentRemainingTree) {
         this.percentRemainingTree=percentRemainingTree;
+        repaint();
     }
 }
 

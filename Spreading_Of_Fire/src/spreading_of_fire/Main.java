@@ -35,7 +35,7 @@ public class Main extends JFrame{
         add(myView);
         
         //Let myView be the observer of myModel
-        myModel.addObserver(myView);
+        myModel.observe(myView);
         
         //Create the controller panel and it must know myModel and myView
         JPanel controller=new Controller(myModel,myView);
