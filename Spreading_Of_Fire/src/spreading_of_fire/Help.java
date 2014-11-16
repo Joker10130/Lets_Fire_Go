@@ -24,7 +24,7 @@ public class Help extends JFrame {
         super("Help");
         setResizable(false);
         try {
-            setSize(800, 600);
+            setSize(960, 720);
             JEditorPane helpContents = new JEditorPane(getClass().getResource("help/index.html"));
             helpContents.setEditable(false);
             helpContents.addHyperlinkListener(new HyperlinkListener() {

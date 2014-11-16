@@ -1,78 +1,162 @@
-	<link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
-	<body>
-		<div class="bar">
-			<center><b>User Manual </b></center>
-		</div>
+<link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
+<body>
+	<div class="bar">
+		<center><b>User Manual </b></center>
+	</div>
 
-		<div class="content">
-			<h2>User Interface</h2>
-			<center><img src="main_program.png" alt="" width="500" height="270"></center>
+	<div class="content">
 
-			<br><hr><br>
-			<h2>Left Panel</h2>
+		<h2>Installation</h2>
+		<p><strong>For user</strong>
+		</p>
 
-			<p><strong>This panel shows the simulation of spreading of fire</strong></p>
+		<ul class="task-list">
+			<li>The Java must be installed, either JDK or JRE. We recommend Java 1.8 as it is the version that we used.</li>
+			<li>Open "Spreading_Of_Fire.jar"</li>
+		</ul>
 
-			<table border=1>
-				<thead>
-					<tr>
-						<th>Symbol</th>
-						<th>Value</th>
-						<th>Meaning</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Yellow Plain</td>
-						<td>0</td>
-						<td>Empty</td>
-					</tr>
-					<tr>
-						<td>Green Oval</td>
-						<td>1</td>
-						<td>Tree</td>
-					</tr>
-					<tr>
-						<td>Red Oval</td>
-						<td>2</td>
-						<td>Fire</td>
-					</tr>
-				</tbody>
-			</table>
+		<p><strong>For Developer</strong>
+		</p>
 
-			<p><strong>Step</strong><br>The number of times that the fire spread. The step count starts with 0.<br></p>
+		<ul class="task-list">
+			<li>We recommend Netbeans IDE 8.0.1 with JDK 8u25.</li>
+			<li>Open Netbeans IDE then File -&gt; Open Project ...</li>
+			<li>Select folder "Spreading_Of_Fire".</li>
+			<li>The source code was separated in 7 parts
 
-			<p><strong>Show Value</strong><br>The status of showing values of the simulation.</p>
+				<ul class="task-list">
+					<li>Spreading_Of_Fire : The class that will initially run, used for running the main class</li>
+					<li>Main : The class that will load the Model, View, and Controller.</li>
+					<li>Model : The core of the application, every functions of the application are in here.</li>
+					<li>Controller : The input of the application, it will control and config the parameter of Model.</li>
+					<li>View : The output of the application, it will receive data from Model and represent it.</li>
+					<li>Cell : The class that contains the cell properties.</li>
+					<li>Help : The help window that appears when you push the help button in controller</li>
+				</ul>
+			</li>
+		</ul>
 
-			<ul class="task-list">
-				<li>true - Show both values and symbols.</li>
-				<li>false - Hide the values and show only symbols.</li>
-			</ul>
+		<hr>
 
+		<h2>User Interface</h2>
+		<center><img src="main_programV2.png" alt="" width="600" height="320"></center>
+
+		<br><hr><br>
+		<h2>Left Panel</h2>
+
+		<p><strong>This panel shows the simulation of spreading of fire</strong>
+		</p>
+
+		<table border=1>
+			<thead>
+				<tr>
+					<th>Symbol</th>
+					<th>Value</th>
+					<th>Meaning</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Yellow Plain</td>
+					<td>0</td>
+					<td>Empty</td>
+				</tr>
+				<tr>
+					<td>Green Oval</td>
+					<td>1</td>
+					<td>Tree</td>
+				</tr>
+				<tr>
+					<td>Red Oval</td>
+					<td>2</td>
+					<td>Fire</td>
+				</tr>
+				<tr>
+					<td>Blue Oval</td>
+					<td>2</td>
+					<td>Fire that burned by Lightning</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p><strong>Step</strong><br>
+			The number of times that the fire spread. The step count starts with 0.<br>
 			
-			<br><hr><br>
-			<h2>Right Panel</h2>
+		</p>
 
-			<p><strong>This panel show the controller of factors of the simulation</strong></p>
+		<p><strong>Show Value</strong><br>
+			The status of showing values of the simulation.
 
-			<h3>Button</h3>
+		</p>
 
-			<ul class="task-list">
-				<li><strong>Spread</strong> - Spread the fire step by step. By pressing this button, the step count will increase by 1.</li>
-				<li><strong>Auto Spread</strong> - Spread the fire respectively. By pressing this button, the step count will continually increase by 1.</li>
-				<li><strong>Stop</strong> - Stop the spreading process. By pressing this button, if <strong>Auto Spread</strong> was pressed, the step counting will be stopped.</li>
-				<li><strong>Reset</strong> - Reset the field. By pressing this button, the field will be reset and the step count will become 0.</li>
-				<li><strong>Toggle Value</strong> - Toggle the status of showing values of the simulation. By pressing this button, the field will show or hide the value alternatively</li>
-			</ul>
+		<ul class="task-list">
+			<li>true - Show both values and symbols.</li>
+			<li>false - Hide the values and show only symbols.</li>
+		</ul>
 
-			<h3>Slider</h3>
+		<p><strong>Lightning Status</strong><br>
+			The status of showing how the lightning cells burn.
+		</p>
 
-			<ul class="task-list">
-				<li><strong>Fire Catch Rate</strong> [0-100] : The chance that fire can spread by catching the neighbor tree. The default value is 50%.</li>
-				<li><strong>Tree Density</strong> [0-100] : The density of tree at the beginning or at the step 0. The default value is 100%.</li>
-				<li><strong>Initial Burning</strong> [0-100] : The chance that the initial tree is burning. The default value is 0%.</li>
-				<li><strong>Size</strong> [11x11 - 99x99] : The size of the field, which means the number of element for each rows and columns. The default value is 31x31.</li>
-				<li><strong>Delay</strong> [1-1000] : The time delay for each step count in milliseconds. The default value is 100 ms.</li>
-			</ul>
-		</div>
-	</body>
+		<ul class="task-list">
+			<li>true - The cell will take 5 step to become an empty cell at step 6. The cell will spread fire in step 2, 3, and 4, and not spread fire int step 1, and 5.</li>
+			<li>false - The cell will immediately become an empty cell after it was burned. In other word, the cell will act like usual fire cell.</li>
+		</ul>
+
+		<p><strong>Remaining Tree</strong><br>
+			The percentage of the trees left from the beginning. The value is calculated by (The current number of trees)/(the initial number of trees) x100%.
+		</p>
+
+
+		<br><hr><br>
+		<h2>Right Panel</h2>
+
+		<p>
+			<strong>This panel show the controller of factors of the simulation</strong>
+		</p>
+
+		<h3><a id="user-content-button" class="anchor" href="#button" aria-hidden="true"><span class="octicon octicon-link"></span></a>Button</h3>
+
+		<ul class="task-list">
+			<li><strong>Spread</strong> - Spread the fire step by step. By pressing this button, the step count will increase by 1.</li>
+			<li><strong>Auto Spread</strong> - Spread the fire respectively. By pressing this button, the step count will continually increase by 1.</li>
+			<li><strong>Stop</strong> - Stop the spreading process. By pressing this button, if <strong>Auto Spread</strong> was pressed, the step counting will be stopped.</li>
+			<li><strong>Reset</strong> - Reset the field. By pressing this button, the field will be reset and the step count will become 0.</li>
+			<li><strong>Toggle Value</strong> - Toggle the status of showing values of the simulation. By pressing this button, the field will show or hide the value alternatively.</li>
+			<li><strong>Step Lightning</strong> - Toggle the status of step lightning of the simulation. By pressing this button, the Lightning status in the view will toggle the value alternatively. The meaning of value can be read above.</li>
+		</ul>
+
+		<h3><a id="user-content-slider" class="anchor" href="#slider" aria-hidden="true"><span class="octicon octicon-link"></span></a>Slider</h3>
+
+		<ul class="task-list">
+			<li><strong>Fire Catch Rate</strong> [0-100] : The chance that fire can spread by catching the neighbor tree. The default value is 50%.</li>
+			<li><strong>Tree Density</strong> [0-100] : The density of tree at the beginning or at the step 0. The default value is 100%.</li>
+			<li><strong>Initial Burning</strong> [0-100] : The chance that the initial tree is burning. The default value is 0%.</li>
+			<li><strong>Size</strong> [11x11 - 99x99] : The size of the field, which means the number of element for each rows and columns. The default value is 31x31.</li>
+			<li><strong>Delay</strong> [1-1000] : The time delay for each step count in milliseconds. The default value is 100 ms.</li>
+			<li><strong>Lightning Chance</strong> [0-100] : The chance that each trees in the field will get lightning. The default value is 0%.</li>
+			<li><strong>Wind Direction</strong> [North, West, East, South] : The direction of the wind. The default value is North.</li>
+			<li><strong>Wind Level</strong> [0-2] : The level of the wind. The default value is 0.</li>
+		</ul>
+		<center>
+			<p>
+				<img src="https://raw.githubusercontent.com/iqsk131/Lets_Fire_Go/master/manual/wind_none.png" alt=""><br>
+				<em>Level 0 - None : There is no wind. The fire will spread in four direction normally.</em>
+			</p>
+
+			<p>
+				<img src="https://raw.githubusercontent.com/iqsk131/Lets_Fire_Go/master/manual/wind_low.png" alt=""><br>
+				<em>Level 1 - Low : The fire will spread in four direction normally. If it spreads successfully, it will have a chance to spread 1 additional cell in the same direction as wind direction, in the sample image is North</em>
+			</p>
+
+			<p>
+				<img src="https://raw.githubusercontent.com/iqsk131/Lets_Fire_Go/master/manual/wind_high.png" alt=""><br>
+				<em>Level 2 - High : The fire will spread in four direction normally. If it spreads successfully, it will have a chance to spread 2 additional cells in the same direction as wind direction, in the sample image is North</em>
+			</p>
+
+		</center>
+		<ul class="task-list">
+			<li><strong>Initial Fire X &amp; Y Coordinate</strong> [1 - size of field] : The coordinate of the first fire cell. The default value is center of field, or (16,16) (The field is 31x31 by defalut). When the size of the field change, the value will be changed into the center of the field.</li>
+		</ul>
+	</div>
+</body>
