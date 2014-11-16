@@ -5,8 +5,8 @@ import java.awt.Color;
 /**
  * The cell class that contain the properties of cell
  *
- * @author Lets_Fire_Go
- * @version 2014.10.14
+ * @author IQ
+ * @version 2.0
  */
 public class Cell {
 
@@ -14,24 +14,28 @@ public class Cell {
     private int status;
     private boolean lightning;
     private int turn;
-    private int i,j;
+    private int i, j;
 
     /**
      * Constructor - create the empty cell
+     * @param i
+     * @param j
      */
-    public Cell(int i,int j) {
-        this(Cell.EMPTY,i,j);
+    public Cell(int i, int j) {
+        this(Cell.EMPTY, i, j);
     }
 
     /**
      * Constructor - create the cell
      *
      * @param status
+     * @param i
+     * @param j
      */
-    public Cell(int status,int i,int j) {
+    public Cell(int status, int i, int j) {
         this.status = status;
-        this.i=i;
-        this.j=j;
+        this.i = i;
+        this.j = j;
         lightning = false;
         turn = 0;
     }
@@ -62,22 +66,47 @@ public class Cell {
         }
     }
 
-    public int getI(){
+    /**
+     * Get the Y-coordination of the cell
+     *
+     * @return I
+     */
+    public int getI() {
         return i;
     }
-    
-    public int getJ(){
+
+    /**
+     * Get the X-coordination of the cell
+     *
+     * @return J
+     */
+    public int getJ() {
         return j;
     }
-    
+
+    /**
+     * Get the Lightning Status
+     *
+     * @return lightning
+     */
     public boolean isLightning() {
         return lightning;
     }
 
+    /**
+     * Get the burning turn
+     *
+     * @return turn
+     */
     public int getTurn() {
         return turn;
     }
 
+    /**
+     * Set the burning turn
+     *
+     * @param turn
+     */
     public void setTurn(int turn) {
         this.turn = turn;
     }
@@ -97,7 +126,9 @@ public class Cell {
      * @return RGB Color
      */
     public Color getColor() {
-        if(lightning)return Color.BLUE;
+        if (lightning) {
+            return Color.BLUE;
+        }
         if (status == FIRE) {
             return Color.RED;
         }
