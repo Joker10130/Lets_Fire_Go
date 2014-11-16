@@ -26,6 +26,9 @@ public class Controller extends JPanel {
     private View myView;
     private Thread startThread;
     private Object myPanel;
+    
+    private JSlider XSlider,YSlider;
+    private JLabel XLabel,YLabel;
 
     public Controller(Model myModel, View myView) {
         this.myModel = myModel;
@@ -36,7 +39,7 @@ public class Controller extends JPanel {
 
         //Add main controller
         addMainController();
-        
+
         //Add main controller
         addMainController2();
 
@@ -54,14 +57,16 @@ public class Controller extends JPanel {
 
         //Add delay slider
         addDelaySlider();
-        
-       //Add lightning slider
+
+        //Add lightning slider
         addProbLightningSlider();
 
         //add Wind Controller
         addWindController();
         
-  
+        //add Wind Controller
+        addInitialFireSetter();
+
     }
 
     private void addMainController() {
@@ -86,10 +91,8 @@ public class Controller extends JPanel {
         //Add the toggle button
         addToggleButton(controller1);
         
-        
-
     }
-    
+
     private void addMainController2() {
         //Create the panel for main controller
         JPanel controller2 = new JPanel();
@@ -99,7 +102,7 @@ public class Controller extends JPanel {
 
         //Add the move button
         addHelpButton(controller2);
-        
+
         //Add the steplightning button
         addStepButton(controller2);
 
@@ -210,11 +213,11 @@ public class Controller extends JPanel {
     }
 
     private void addHelpButton(JPanel myPanel) {
-        
+
         JButton helpButton = new JButton("Help");
 
-        Help help=new Help();
-        
+        Help help = new Help();
+
         //Add the action listener to the button
         helpButton.addActionListener(new ActionListener() {
             @Override
@@ -225,12 +228,12 @@ public class Controller extends JPanel {
         //Add the button to the myPanel
         myPanel.add(helpButton);
     }
-      private void addStepButton(JPanel myPanel) {
-        
+
+    private void addStepButton(JPanel myPanel) {
 
         //Create the button
         JButton stepButton = new JButton("Step Lightning");
-        
+
         //Add the action listener to the button
         stepButton.addActionListener(new ActionListener() {
             @Override
@@ -238,13 +241,12 @@ public class Controller extends JPanel {
                 myModel.setStepLightning(!myModel.getStepLightning());
             }
         });
-        
-      //Add the button to the myPanel
-         myPanel.add(stepButton);
-    
+
+        //Add the button to the myPanel
+        myPanel.add(stepButton);
+
     }
 
-    
     private void addProbCatchSlider() {
         JPanel myPanel = new JPanel();
         myPanel.setLayout(new GridLayout(1, 2));
@@ -393,11 +395,21 @@ public class Controller extends JPanel {
                 //Set the Size in myModel
                 int newSize = ((JSlider) (e.getSource())).getValue();
                 myModel.setSize(newSize * 2 + 1, newSize * 2 + 1);
+                int X=myModel.getFirstFireCellX();
+                int Y=myModel.getFirstFireCellY();
                 //Set the Size in myView
                 int boxSize = (int) ((500) / (newSize * 2 + 1));
                 myView.setBlockSize(boxSize, boxSize);
                 //Change the label
                 myLabel.setText("" + myModel.getWidth() + "x" + myModel.getHeight());
+                if(XSlider!=null && YSlider != null){
+                    XSlider.setMaximum(myModel.getWidth()-1);
+                    XSlider.setValue(X);
+                    XLabel.setText(""+(X+1));
+                    YSlider.setMaximum(myModel.getHeight()-1);
+                    YSlider.setValue(Y);
+                    YLabel.setText(""+(Y+1));
+                }
                 //Stop the Thread if alive
                 if (startThread != null && startThread.isAlive()) {
                     startThread.stop();
@@ -446,7 +458,7 @@ public class Controller extends JPanel {
         mySliderPanel.add(mySlider);
     }
 
-   private void addProbLightningSlider() {
+    private void addProbLightningSlider() {
         JPanel myPanel = new JPanel();
         myPanel.setLayout(new GridLayout(1, 2));
         add(myPanel);
@@ -538,7 +550,92 @@ public class Controller extends JPanel {
         });
         mySliderPanel.add(mySlider);
     }
+
+    private void addInitialFireSetter() {
+        JPanel myPanel = new JPanel();
+        myPanel.setLayout(new GridLayout(2, 2));
+        add(myPanel);
+
+        //////////////////////////////////////////////////X////////////////////////////////////
+        //Create and add the label panel
+        JPanel myLabelPanelX = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanelX);
+
+        //Add the name label
+        myLabelPanelX.add(new JLabel("Initial Fire X-Coordinate : "));
+
+        //Add the value label
+        JLabel myLabelX = new JLabel("" + (myModel.getFirstFireCellX()+1));
+        myLabelPanelX.add(myLabelX);
+
+        //Create and add the controller panel
+        JPanel mySliderPanelX = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanelX);
+        //Create and Add the Slider from 0-100
+        JSlider mySliderX = new JSlider(JSlider.HORIZONTAL, 0, myModel.getWidth()-1, (int)(myModel.getWidth()/2.0));
+        mySliderX.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                //Set the Lightning Chance
+                int newX = ((JSlider) (e.getSource())).getValue();
+                myModel.setFirstFireCell(newX, myModel.getFirstFireCellY());
+                //Change the label
+                myLabelX.setText("" + (myModel.getFirstFireCellX()+1));
+                //If There is an alive Thread, stop it
+                if (startThread != null && startThread.isAlive()) {
+                    startThread.stop();
+
+                }
+                //Reset the main process
+                myModel.fieldReset();
+            }
+        });
+
+        //Add the slider to the panel
+        mySliderPanelX.add(mySliderX);
+        
+        
+        //////////////////////////////////////////////////X////////////////////////////////////
+        //Create and add the label panel
+        JPanel myLabelPanelY = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        myPanel.add(myLabelPanelY);
+
+        //Add the name label
+        myLabelPanelY.add(new JLabel("Initial Fire Y-Coordinate : "));
+
+        //Add the value label
+        JLabel myLabelY = new JLabel("" + (myModel.getFirstFireCellY()+1));
+        myLabelPanelY.add(myLabelY);
+
+        //Create and add the controller panel
+        JPanel mySliderPanelY = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        myPanel.add(mySliderPanelY);
+        //Create and Add the Slider from 0-100
+        JSlider mySliderY = new JSlider(JSlider.HORIZONTAL, 0, myModel.getHeight()-1, (int)(myModel.getHeight()/2.0));
+        mySliderY.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                //Set the Lightning Chance
+                int newY = ((JSlider) (e.getSource())).getValue();
+                myModel.setFirstFireCell( myModel.getFirstFireCellX(),newY);
+                //Change the label
+                myLabelY.setText("" + (myModel.getFirstFireCellY()+1));
+                //If There is an alive Thread, stop it
+                if (startThread != null && startThread.isAlive()) {
+                    startThread.stop();
+
+                }
+                //Reset the main process
+                myModel.fieldReset();
+            }
+        });
+
+        XSlider=mySliderX;
+        YSlider=mySliderY;
+        XLabel=myLabelX;
+        YLabel=myLabelY;
+        
+        //Add the slider to the panel
+        mySliderPanelY.add(mySliderY);
+    }
 }
-
-  
-
