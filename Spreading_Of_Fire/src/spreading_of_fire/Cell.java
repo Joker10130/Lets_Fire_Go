@@ -15,6 +15,7 @@ public class Cell {
     private boolean lightning;
     private int turn;
     private int i, j;
+    private double probCatchFactor;
 
     /**
      * Constructor - create the empty cell
@@ -38,8 +39,17 @@ public class Cell {
         this.j = j;
         lightning = false;
         turn = 0;
+        probCatchFactor=-1.0;
     }
 
+    public double getProbCatchFactor() {
+        return probCatchFactor;
+    }
+
+    public void setProbCatchFactor(double probCatchFactor) {
+        this.probCatchFactor = Math.max(probCatchFactor, this.probCatchFactor);
+    }
+    
     /**
      * Get the status of cell
      *

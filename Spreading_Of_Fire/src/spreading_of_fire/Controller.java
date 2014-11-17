@@ -85,8 +85,6 @@ public class Controller extends JPanel {
         //Add the reset button
         addResetButton(controller1);
 
-        //Add the toggle button
-        addToggleButton(controller1);
 
     }
 
@@ -97,6 +95,9 @@ public class Controller extends JPanel {
         //Add to the main panel
         add(controller2);
 
+        //Add the toggle button
+        addToggleButton(controller2);
+        
         //Add the steplightning button
         addStepButton(controller2);
         
@@ -233,7 +234,7 @@ public class Controller extends JPanel {
     private void addStepButton(JPanel myPanel) {
 
         //Create the button
-        JButton stepButton = new JButton("Step Lightning");
+        JButton stepButton = new JButton("Toggle Step Lightning");
 
         //Add the action listener to the button
         stepButton.addActionListener(new ActionListener() {
@@ -513,15 +514,12 @@ public class Controller extends JPanel {
         JPanel myLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         myPanel.add(myLabelPanel);
 
-        //Add the name label
-        myLabelPanel.add(new JLabel("Wind Direction : "));
-
         //Create the comboBox of wind direction
         JComboBox windDirectionComboBox = new JComboBox();
-        windDirectionComboBox.addItem("North");
-        windDirectionComboBox.addItem("West");
-        windDirectionComboBox.addItem("East");
-        windDirectionComboBox.addItem("South");
+        windDirectionComboBox.addItem("Northern");
+        windDirectionComboBox.addItem("Western");
+        windDirectionComboBox.addItem("Eastern");
+        windDirectionComboBox.addItem("Southern");
         windDirectionComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {

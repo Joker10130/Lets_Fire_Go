@@ -60,10 +60,10 @@ public class View extends JPanel {
         g.drawString("Show Value: " + showValue, 100, 520);
 
         //show step lighting status
-        g.drawString("Lighting Status: " + showLighting, 255, 520);
+        g.drawString("Step Lighting Status: " + showLighting, 255, 520);
 
         //Show remainingtree
-        g.drawString("Remaining Tree: " + percentRemainingTree, 10, 550);
+        g.drawString("Remaining Tree: " + percentRemainingTree + "%", 10, 550);
     }
 
     /**

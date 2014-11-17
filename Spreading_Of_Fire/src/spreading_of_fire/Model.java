@@ -368,35 +368,6 @@ public final class Model {
         return ((double) numTree / (double) firstNumTree) * 100;
     }
 
-    /**
-     * Add the cell that affected by wind from cell[i][j] to the cellList
-     *
-     * @param cellList
-     * @param i
-     * @param j
-     */
-    private void windEffect(ArrayList<Cell> cellList, int i, int j) {
-        if ("S".equals(windDirection)) {
-            if (get(i + 1, j) == Cell.TREE) {
-                cellList.add(cell[i + 1][j]);
-            }
-        }
-        if ("W".equals(windDirection)) {
-            if (get(i, j - 1) == Cell.TREE) {
-                cellList.add(cell[i][j - 1]);
-            }
-        }
-        if ("N".equals(windDirection)) {
-            if (get(i - 1, j) == Cell.TREE) {
-                cellList.add(cell[i - 1][j]);
-            }
-        }
-        if ("E".equals(windDirection)) {
-            if (get(i, j + 1) == Cell.TREE) {
-                cellList.add(cell[i][j + 1]);
-            }
-        }
-    }
 
     /**
      * Spread fire cells
@@ -408,8 +379,6 @@ public final class Model {
         boolean burnCellLeft = false, wouldLightningLeft = false;
         ArrayList<Cell> wouldBurnCell = new ArrayList();
         ArrayList<Cell> wouldLightningCell = new ArrayList();
-        ArrayList<Cell> wouldSpreadByWindLevel1 = new ArrayList();
-        ArrayList<Cell> wouldSpreadByWindLevel2 = new ArrayList();
 
         //Go through the field
         for (int i = 0; i < cell.length; i++) {
@@ -421,15 +390,27 @@ public final class Model {
                     if (!cell[i][j].isLightning() || (cell[i][j].getTurn() > 1 && cell[i][j].getTurn() < 5) || !stepLightning) {
                         //Spread fire to the neighbors
                         if (get(i + 1, j) == Cell.TREE) {
+                            if(windDirection.equals("S"))cell[i+1][j].setProbCatchFactor(-(windLevel/10.0));
+                            else if(windDirection.equals("N"))cell[i+1][j].setProbCatchFactor((windLevel/10.0));
+                            else cell[i+1][j].setProbCatchFactor(0.0);
                             wouldBurnCell.add(cell[i + 1][j]);
                         }
                         if (get(i - 1, j) == Cell.TREE) {
+                            if(windDirection.equals("N"))cell[i-1][j].setProbCatchFactor(-(windLevel/10.0));
+                            else if(windDirection.equals("S"))cell[i-1][j].setProbCatchFactor((windLevel/10.0));
+                            else cell[i-1][j].setProbCatchFactor(0.0);
                             wouldBurnCell.add(cell[i - 1][j]);
                         }
                         if (get(i, j + 1) == Cell.TREE) {
+                            if(windDirection.equals("E"))cell[i][j+1].setProbCatchFactor(-(windLevel/10.0));
+                            else if(windDirection.equals("W"))cell[i][j+1].setProbCatchFactor((windLevel/10.0));
+                            else cell[i][j+1].setProbCatchFactor(0.0);
                             wouldBurnCell.add(cell[i][j + 1]);
                         }
                         if (get(i, j - 1) == Cell.TREE) {
+                            if(windDirection.equals("W"))cell[i][j-1].setProbCatchFactor(-(windLevel/10.0));
+                            else if(windDirection.equals("E"))cell[i][j-1].setProbCatchFactor((windLevel/10.0));
+                            else cell[i][j-1].setProbCatchFactor(0.0);
                             wouldBurnCell.add(cell[i][j - 1]);
                         }
                     }
@@ -450,6 +431,7 @@ public final class Model {
                 //Check if the tree cell get lightning or not
                 if (cell[i][j].get() == Cell.TREE && Math.random() < probLightning) {
                     //Add it to lightning cell
+                    cell[i][j].setProbCatchFactor(0);
                     wouldLightningCell.add(cell[i][j]);
                     //There are still lightning cell left
                     wouldLightningLeft = true;
@@ -487,50 +469,8 @@ public final class Model {
             }
 
             //Check if the tree is catched by fire
-            if (Math.random() < probCatch) {
+            if (Math.random() < probCatch + fireCell.getProbCatchFactor()) {
                 fireCell.set(Cell.FIRE);
-                //Spead to the neighbor by the wind effect
-                windEffect(wouldSpreadByWindLevel1, fireCell.getI(), fireCell.getJ());
-            }
-        }
-
-        //If wind level is more than 1, burn those cells
-        if (windLevel >= 1) {
-            while (!wouldSpreadByWindLevel1.isEmpty()) {
-
-                //Get the tree cell from the wouldSpreadByWindLevel1
-                Cell fireCell = wouldSpreadByWindLevel1.get(0);
-                wouldSpreadByWindLevel1.remove(0);
-
-                if (fireCell.get() != Cell.TREE) {
-                    continue;
-                }
-
-                //Check if the tree is catched by fire
-                if (Math.random() < probCatch) {
-                    fireCell.set(Cell.FIRE);
-                    //Spead to the neighbor by the wind effect again
-                    windEffect(wouldSpreadByWindLevel2, fireCell.getI(), fireCell.getJ());
-                }
-            }
-        }
-
-        //If wind level is 2, burn those cells
-        if (windLevel == 2) {
-            while (!wouldSpreadByWindLevel2.isEmpty()) {
-
-                //Get the tree cell from the wouldSpreadByWindLevel2
-                Cell fireCell = wouldSpreadByWindLevel2.get(0);
-                wouldSpreadByWindLevel2.remove(0);
-
-                if (fireCell.get() != Cell.TREE) {
-                    continue;
-                }
-
-                //Check if the tree is catched by fire
-                if (Math.random() < probCatch) {
-                    fireCell.set(Cell.FIRE);
-                }
             }
         }
 
