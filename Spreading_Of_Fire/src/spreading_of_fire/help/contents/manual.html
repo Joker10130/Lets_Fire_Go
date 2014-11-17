@@ -135,28 +135,18 @@
 			<li><strong>Size</strong> [11x11 - 99x99] : The size of the field, which means the number of element for each rows and columns. The default value is 31x31.</li>
 			<li><strong>Delay</strong> [1-1000] : The time delay for each step count in milliseconds. The default value is 100 ms.</li>
 			<li><strong>Lightning Chance</strong> [0-100] : The chance that each trees in the field will get lightning. The default value is 0%.</li>
-			<li><strong>Wind Direction</strong> [North, West, East, South] : The direction of the wind. The default value is North.</li>
-			<li><strong>Wind Level</strong> [0-2] : The level of the wind. The default value is 0.</li>
-		</ul>
-		<center>
-			<p>
-				<img src="https://raw.githubusercontent.com/iqsk131/Lets_Fire_Go/master/manual/wind_none.png" alt=""><br>
-				<em>Level 0 - None : There is no wind. The fire will spread in four direction normally.</em>
-			</p>
+			<li><strong>Wind Direction</strong> [North, West, East, South] : The direction of the wind. The default value is Northern Wind, which mean the wind blow from North to South.</li>
+			<li>
+				<strong>Wind Level</strong> [0-2] : The level of the wind. The default value is 0.
 
-			<p>
-				<img src="https://raw.githubusercontent.com/iqsk131/Lets_Fire_Go/master/manual/wind_low.png" alt=""><br>
-				<em>Level 1 - Low : The fire will spread in four direction normally. If it spreads successfully, it will have a chance to spread 1 additional cell in the same direction as wind direction, in the sample image is North</em>
-			</p>
-
-			<p>
-				<img src="https://raw.githubusercontent.com/iqsk131/Lets_Fire_Go/master/manual/wind_high.png" alt=""><br>
-				<em>Level 2 - High : The fire will spread in four direction normally. If it spreads successfully, it will have a chance to spread 2 additional cells in the same direction as wind direction, in the sample image is North</em>
-			</p>
-
-		</center>
-		<ul class="task-list">
+				<ul class="task-list">
+					<li><strong>Wind Level 0 - None</strong> : There is no effect with the probCatch.</li>
+					<li><strong>Wind Level 1 - Low</strong> : The probCatch of the cell that is downwind is +10% and the upwind is -10%. There is no effect of the perpendicular direction.</li>
+					<li><strong>Wind Level 2 - High</strong> : The probCatch of the cell that is downwind is +20% and the upwind is -20%. There is no effect of the perpendicular direction.</li>
+				</ul>
+			</li>
 			<li><strong>Initial Fire X &amp; Y Coordinate</strong> [1 - size of field] : The coordinate of the first fire cell. The default value is center of field, or (16,16) (The field is 31x31 by defalut). When the size of the field change, the value will be changed into the center of the field.</li>
 		</ul>
+
 	</div>
 </body>
