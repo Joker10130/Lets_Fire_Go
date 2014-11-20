@@ -14,7 +14,7 @@ public final class Model {
     private double probCatch, probTree, probBurn, probLightning;
     private int step;
     private Cell cell[][];
-    private View myView;
+    private View observerView;
     private boolean stepLightning;
     private int firstNumTree, numTree;
     private int firstFireCellX, firstFireCellY;
@@ -61,7 +61,7 @@ public final class Model {
         this.firstFireCellY = height / 2;
         this.windDirection = "N";
         this.windLevel = 0;
-        myView = null;
+        observerView = null;
         //Reset the field
         fieldReset();
     }
@@ -499,8 +499,8 @@ public final class Model {
      *
      * @param view
      */
-    public void observe(View view) {
-        myView = view;
+    public void registerObserver(View observerView) {
+        this.observerView = observerView;
         update();
     }
 
@@ -508,9 +508,9 @@ public final class Model {
      * Update this field
      */
     public void update() {
-        if (myView != null) {
+        if (observerView != null) {
             //Send cell, step, percent remaining tree, stepLightning status to the View
-            myView.update(cell, step, this.getPercentRemainingTree(), stepLightning);
+            observerView.update(cell, step, this.getPercentRemainingTree(), stepLightning);
         }
     }
 
